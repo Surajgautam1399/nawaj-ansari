@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SAMRAJYA Tour – Independent Artist Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- Your styles -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <!-- Your JS -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+</head>
+<body>
+  <div id="particles-bg" aria-hidden="false"></div>
+
+  <!-- NAV -->
+  <header>
+    <div class="logo">
+      <img src="assets/img/logo.png" alt="RINASA" class="logo-mark">
+      <span>RINASA</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#tour">tour</a></li>
+        <li><a href="#merch">merch</a></li>
+        <li><a href="#about">about</a></li>
+        <li><a href="#spotify">spotify</a></li>
+        <li><a href="#youtube">youtube</a></li>
+        <li><a href="#contact">contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg-image"></div>
+      <div class="hero-overlay-image"></div>
+      <div class="hero-overlay-gradient"></div>
+
+      <div class="hero-content">
+        <div class="hero-name-backdrop">NAWAJ<br />ANSARI</div>
+
+        <div class="hero-visual">
+          <div class="hero-portrait-frame">
+            <img src="assets/img/artist-portrait.png" class="hero-portrait" />
+            <div class="hero-eyes"></div>
+          </div>
+        </div>
+
+        <p class="hero-tagline">A journey through genius</p>
+        <p class="hero-description">
+          Welcome to the world of <strong>NAWAJ ANSARI</strong>. Step into the vortex where boundaries fall away and vision takes over—pure creative force in monochrome.
+        </p>
+
+        <div class="hero-cta-row">
+          <button class="btn btn-primary" onclick="document.getElementById('tour').scrollIntoView({behavior:'smooth'})">
+            Next show – tickets
+          </button>
+          <button class="btn" onclick="document.getElementById('merch').scrollIntoView({behavior:'smooth'})">
+            Shop merch
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-ribbon">
+        <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
+        <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
+        <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
+        <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
+      </div>
+    </section>
+
+    <!-- SPOTIFY -->
+    <section id="spotify" class="spotify-section">
+      <div class="spotify-layer-bg">
+        <div class="spotify-card spotify-card--bg">
+          <iframe class="spotify-embed"
+            src="https://open.spotify.com/embed/artist/3dSiKDhXz6jbBNxFGSWO1y?utm_source=generator"
+            width="100%" height="352" frameborder="0"
+            allowfullscreen=""
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            title="Listen on Spotify (background copy)"></iframe>
+        </div>
+      </div>
+
+      <div class="spotify-overlay" aria-hidden="true"></div>
+
+      <div class="spotify-content">
+        <div>
+          <p class="section-label">Listen</p>
+          <h2 class="section-heading">NAWAJ ANSARI on Spotify</h2>
+          <p class="spotify-subtext">Stream the latest drops</p>
+        </div>
+        <div class="spotify-card">
+          <iframe class="spotify-embed"
+            src="https://open.spotify.com/embed/artist/3dSiKDhXz6jbBNxFGSWO1y?utm_source=generator"
+            width="100%" height="352" frameborder="0"
+            allowfullscreen=""
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            title="Listen on Spotify"></iframe>
+        </div>
+      </div>
+    </section>
+
+   
+
+    <!-- TOUR -->
+    <section id="tour" class="tour">
+      <p class="section-label">Live</p>
+      <h2 class="section-heading">Tour dates</h2>
+
+      <div class="tour-grid">
+        <!-- COUNTDOWN CARD -->
+        <div class="countdown-card">
+          <div class="countdown-title">Next stop</div>
+          <div class="countdown-event">Kathmandu • SAMRAJYA Tour</div>
+
+          <div class="countdown" id="countdown">
+            <div class="countdown-unit">
+              <div class="countdown-number" id="days">00</div>
+              <div class="countdown-label">days</div>
+            </div>
+            <div class="countdown-unit">
+              <div class="countdown-number" id="hours">00</div>
+              <div class="countdown-label">hours</div>
+            </div>
+            <div class="countdown-unit">
+              <div class="countdown-number" id="minutes">00</div>
+              <div class="countdown-label">minutes</div>
+            </div>
+            <div class="countdown-unit">
+              <div class="countdown-number" id="seconds">00</div>
+              <div class="countdown-label">seconds</div>
+            </div>
+          </div>
+
+          <p class="countdown-meta">
+            Club Deja Vu • Feb 05, 2026 • Doors 10:00 PM
+          </p>
+
+          <div class="tour-cta">
+            <button class="btn btn-primary">Buy tickets</button>
+          </div>
+        </div>
+
+        <!-- TOUR DATES LIST -->
+        <div class="tour-list">
+          <div class="tour-item">
+            <div class="tour-item-date">Feb 05 • 2026</div>
+            <div class="tour-item-location">Kathmandu, NP</div>
+            <div class="tour-item-venue">Club Deja Vu</div>
+            <div class="tour-item-action"><button>Tickets</button></div>
+          </div>
+
+          <div class="tour-item">
+            <div class="tour-item-date">Feb 12 • 2026</div>
+            <div class="tour-item-location">Pokhara, NP</div>
+            <div class="tour-item-venue">Ozone Club</div>
+            <div class="tour-item-action"><button>Tickets</button></div>
+          </div>
+
+          <div class="tour-item">
+            <div class="tour-item-date">Feb 19 • 2026</div>
+            <div class="tour-item-location">Butwal, NP</div>
+            <div class="tour-item-venue">The Factory Lounge</div>
+            <div class="tour-item-action"><button>Tickets</button></div>
+          </div>
+
+          <div class="tour-item">
+            <div class="tour-item-date">Feb 26 • 2026</div>
+            <div class="tour-item-location">Chitwan, NP</div>
+            <div class="tour-item-venue">Rhino Lounge</div>
+            <div class="tour-item-action"><button>Tickets</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MERCH -->
+    <section id="merch" class="merch">
+      <div class="merch-header-row">
+        <div>
+          <p class="section-label">Store</p>
+          <h2 class="section-heading">Merch &amp; drops</h2>
+        </div>
+        <p class="merch-subtext">
+          Limited-run tees, hoodies, and caps inspired by the live show "SAMRAJYA TOUR". 
+          Once they’re gone, they’re gone. All orders ship worldwide.
+        </p>
+      </div>
+
+      <div class="merch-grid">
+        <!-- Tee -->
+        <article class="product-card">
+          <div class="product-image-wrap">
+            <div class="product-image product-image-tee">
+               <img src="assets/img/product-image product-image-tee.png" alt="RINASA" class="product-image product-image-tee">
+            </div>
+            
+            <div class="product-tag">New</div>
+           
+          </div>
+          <div class="product-body">
+            <h3 class="product-name">"SAMRAJYA" Tour Tee</h3>
+            <div class="product-meta-row">
+              <span>Black / S–XXL</span>
+              <span class="product-price">$40</span>
+            </div>
+          </div>
+          <div class="product-footer">
+            <span>Ships in 3–5 days</span>
+            <button>Add to cart</button>
+          </div>
+        </article>
+
+        <!-- Hoodie -->
+        <article class="product-card">
+          <div class="product-image-wrap">
+            <div class="product-image product-image-hoodie">
+              <img src="assets/img/product-image product-image-hoodie.jpg" alt="RINASA" class="product-image product-image-hoodie">
+            </div>
+            <div class="product-tag">Drop</div>
+          </div>
+          <div class="product-body">
+            <h3 class="product-name">REAL G Hoodie</h3>
+            <div class="product-meta-row">
+              <span>Heavyweight fleece</span>
+              <span class="product-price">$75</span>
+            </div>
+          </div>
+          <div class="product-footer">
+            <span>Low stock</span>
+            <button>Add to cart</button>
+          </div>
+        </article>
+
+        <!-- Cap -->
+        <article class="product-card">
+          <div class="product-image-wrap">
+            <div class="product-image product-image-cap">
+              <img src="assets/img/product-image product-image-cap.jpg" alt="RINASA" class="product-image product-image-cap">
+            </div>
+            <div class="product-tag">Capsule</div>
+          </div>
+          <div class="product-body">
+            <h3 class="product-name">DHAKA Cap</h3>
+            <div class="product-meta-row">
+              <span>DHAKA COLLECTION snapback</span>
+              <span class="product-price">$32</span>
+            </div>
+          </div>
+          <div class="product-footer">
+            <span>One size</span>
+            <button>Add to cart</button>
+          </div>
+        </article>
+
+        <!-- Bundle -->
+        <article class="product-card">
+          <div class="product-image-wrap">
+            <div class="product-image product-image-bundle">
+               <img src="assets/img/product-image product-image-bundle.jpg" alt="RINASA" class="product-image product-image-bundle">
+            </div>
+            <div class="product-tag">Bundle</div>
+          </div>
+          <div class="product-body">
+            <h3 class="product-name">SAMRAJYA Tour Starter Pack</h3>
+            <div class="product-meta-row">
+              <span>Tee + cap + wristband</span>
+              <span class="product-price">$95</span>
+            </div>
+          </div>
+          <div class="product-footer">
+            <span>Includes digital booklet</span>
+            <button>Add to cart</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+     <!-- YOUTUBE -->
+    <section id="youtube" class="spotify-section">
+      <div class="spotify-layer-bg">
+        <div class="spotify-card spotify-card--bg">
+          <iframe class="spotify-embed"
+            src="https://www.youtube.com/embed/BMrP3oCTH_Y?si=kIQpalBLQEQ6Rpe0"
+            width="100%" height="352" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            loading="lazy"
+            title="Watch on YouTube (background copy)"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div class="spotify-overlay" aria-hidden="true"></div>
+
+      <div class="spotify-content">
+        <div>
+          <p class="section-label">Watch</p>
+          <h2 class="section-heading">Nawaj Ansari on YouTube</h2>
+          <p class="spotify-subtext">Live clips, videos, and drops.</p>
+        </div>
+        <div class="spotify-card">
+          <iframe class="spotify-embed"
+            src="https://www.youtube.com/embed/BMrP3oCTH_Y?si=kIQpalBLQEQ6Rpe0"
+            width="100%" height="352" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            loading="lazy"
+            title="Watch on YouTube"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+    
+    <section </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="about">
+      <p class="section-label">Story</p>
+      <div class="about-grid">
+        <div>
+          <h2 class="section-heading">From the galli of Handiguan to the city of Dallas with a vision</h2>
+          <div class="about-text">
+            <p>
+              Raised between late-night studio session and bedroom speakers, <strong>NAWAJ ANSARI</strong> built a sound 
+              that sits somewhere between industrial shadows and gospel glow. No label, no backing — just an 
+              independent artist turning every show into a temporary universe.
+            </p>
+            <p>
+              The <em>SAMRAJYA Tour</em> is the first full-scale run: a series shows where energy, crowd, 
+              and live vocals collide in one monochrome fever dream. Every city gets a unique intro, custom visuals, 
+              and limited City-Specific Merch.
+            </p>
+          </div>
+        </div>
+        <div class="about-quote">
+          From a small room studio to sold-out cities — the mission stays the same:
+          keep it REAL, keep it 1 HUNDRED, and move in SILENCE.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER / CONTACT -->
+  <footer id="contact">
+    <span>© 2025 RINASA RECORDS. All rights reserved.</span>
+    <div class="footer-logos">
+      <img src="assets/img/logo.png" alt="RINASA RECORDS" class="logo-mark-footer">
+      <img src="assets/img/Cafemandu Round Logo.PNG" alt="Cafemandu" class="logo-mark-footer">
+      <img src="assets/img/Khatra lifestyle.PNG" alt="Khatra lifestyle" class="logo-mark-footer">
+      <img src="assets/img/Jungey.PNG" alt="JUNGEY" class="logo-mark-footer">
+      <img src="assets/img/Dubai.png" alt="DUBAI" class="logo-mark-footer">
+      <img src="assets/img/Cruz_shots.png" alt="CruzShots" class="logo-mark-footer">
+  
+    </div>
+
+    <div class="footer-links">
+      <a href="https://www.instagram.com/nawaj.ansari/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="https://open.spotify.com/artist/3dSiKDhXz6jbBNxFGSWO1y?si=0yKn-tgnSQ-V-ELWR9QOOQ" target="_blank" rel="noopener noreferrer">Spotify</a>
+      <a href="https://www.youtube.com/channel/UCcTQqNP3v_mhO8UW9GAMx9w" target="_blank" rel="noopener noreferrer">YouTube</a>
+      <a href="https://www.tiktok.com/@nawajansari20?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer">Tik-Tok</a>
+    </div>
+  </footer>
+</body>
+</html>
