@@ -795,16 +795,16 @@ section {
 
 /* Per-product images */
 .product-image-tee {
-  background-image: url("../img/merch-tee.jpg");
+  background-image: url("../img/product-image product-image-tee.png");
 }
 .product-image-hoodie {
-  background-image: url("../img/merch-hoodie.jpg");
+  background-image: url("../img/product-image product-image-hoodie.jpg");
 }
 .product-image-cap {
-  background-image: url("../img/merch-cap.jpg");
+  background-image: url("../img/product-image product-image-cap.jpg");
 }
 .product-image-bundle {
-  background-image: url("../img/merch-bundle.jpg");
+  background-image: url("../img/product-image product-image-bundle.jpg");
 }
 
 .product-tag {
