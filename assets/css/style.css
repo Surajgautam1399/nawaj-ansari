@@ -38,7 +38,7 @@ img {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 20; /* above content but still non-interactive */
+  z-index: 5; /* above content but still non-interactive */
   pointer-events: none;
 }
 
@@ -232,7 +232,7 @@ main {
   height: 24px;
   border-radius: 999px;
   box-shadow: 0 0 70px 20px rgba(255,255,255,0.6);
-  opacity: 0.65;
+  opacity: 0.99;
   filter: blur(3px);
   pointer-events: none;
 }
@@ -257,54 +257,61 @@ main {
 
 /* === WATER DROPLETS === */
 
-.hero-tagline::before,
-.hero-tagline::after {
+.hero-name-backdrop::before,
+.hero-name-backdrop::after {
   content: "";
-  position: absolute;
-  top: 100%;              /* start right under the text */
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #ffffff, #66c5ff 55%, #004466);
+  position: center;
+  top: 65%;              /* start at bottom of text block */
+  left: 70%;
+  width: 4px;
+  height: 10px;
+  border-radius: 3%;
+  background: radial-gradient(circle at 60% 60%, #ffffff, #db0101 70%, #004466);
   box-shadow:
     0 0 6px rgba(240, 48, 5, 0.9),
     0 4px 10px rgba(0,0,0,0.7);
-  opacity: 0;
+  opacity: 12;
 }
 
-/* first droplet */
-.hero-tagline::before {
-  left: 35%;              /* horizontal position under the word */
-  animation: droplet-fall 2.4s ease-in infinite;
+.hero-name-backdrop::before {
+  left: 0;
+  box-shadow:
+    -220px -120px rgba(240,48,5,0.9),
+    -60px -200px rgba(240,48,5,0.9),
+    40px -160px rgba(240,48,5,0.9),
+    180px -140px rgba(240,48,5,0.9);
+   animation: droplet-fall 1.4s linear infinite;
 }
 
-/* second droplet (offset + delay) */
-.hero-tagline::after {
-  left: 68%;
-  animation: droplet-fall 2.8s ease-in infinite 0.8s;
+.hero-name-backdrop::after {
+  left: 0;
+  box-shadow:
+    -160px -100px rgba(240,48,5,0.9),
+    -10px -180px rgba(240,48,5,0.9),
+    120px -220px rgba(240,48,5,0.9),
+    240px -150px rgba(240,48,5,0.9);
+  animation: droplet-fall 1.9s linear infinite 0.6s;
 }
 
-/* falling / dripping motion */
+/* Rain-style straight fall */
 @keyframes droplet-fall {
   0% {
     opacity: 0;
-    transform: translateY(-10px) scale(0.2);
+    transform: translateY(-30px) scale(0.9);
   }
-  12% {
+
+  10% {
     opacity: 1;
-    transform: translateY(0) scale(1);   /* just formed on the text */
   }
-  40% {
+
+  85% {
     opacity: 1;
-    transform: translateY(35px) scale(0.9);  /* sliding down */
+    transform: translateY(110px) scale(0.9);
   }
-  70% {
-    opacity: 0.9;
-    transform: translateY(70px) scale(0.7);  /* stretching as it falls */
-  }
+
   100% {
     opacity: 0;
-    transform: translateY(105px) scale(0.3); /* fades out */
+    transform: translateY(130px) scale(0.9);
   }
 }
 
@@ -458,6 +465,44 @@ main {
   background: #060606;
   border-top: 1px solid #0f0f0f;
   border-bottom: 1px solid #0f0f0f;
+  position: relative;
+  overflow: hidden;
+}
+
+.spotify-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(0,0,0,0.72), rgba(0,0,0,0.35));
+  z-index: 0;
+  pointer-events: none;
+}
+
+.spotify-layer-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  z-index: 3; /* above other section layers while staying non-interactive */
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+}
+
+.spotify-card--bg {
+  transform: scale(1.25);
+  filter: blur(18px);
+  opacity: 0.99;
+  box-shadow: none;
+  width: 100%;
+}
+
+.spotify-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
 }
 
 .spotify-content {
@@ -465,6 +510,8 @@ main {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   align-items: center;
   gap: 24px;
+  position: relative;
+  z-index: 3;
 }
 
 .spotify-subtext {
@@ -474,11 +521,31 @@ main {
 }
 
 .spotify-card {
-  background: radial-gradient(circle at top, #0d0d0d, #050505);
-  border: 1px solid #1c1c1c;
+  position: relative;
+  background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.05), rgba(5,5,5,0.9));
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 22px;
   padding: 14px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.75),
+    0 6px 18px rgba(0,0,0,0.45),
+    0 0 0 1px rgba(255,255,255,0.03);
+  backdrop-filter: blur(6px);
+  overflow: hidden;
+}
+
+.spotify-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 60%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0));
+  opacity: 0.5;
+  transform: translate(-15%, -20%) rotate(-5deg);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .spotify-embed {
@@ -488,6 +555,16 @@ main {
   border-radius: 16px;
   display: block;
   overflow: hidden;
+}
+
+@media (max-width: 720px) {
+  .spotify-layer-bg {
+    justify-content: center;
+  }
+  .spotify-card--bg {
+    margin-right: 0;
+    transform: scale(1.15);
+  }
 }
 
 
@@ -718,16 +795,16 @@ section {
 
 /* Per-product images */
 .product-image-tee {
-  background-image: url("../img/merch-tee.jpg");
+  background-image: url("../img/product-image product-image-tee.png");
 }
 .product-image-hoodie {
-  background-image: url("../img/merch-hoodie.jpg");
+  background-image: url("../img/product-image product-image-hoodie.jpg");
 }
 .product-image-cap {
-  background-image: url("../img/merch-cap.jpg");
+  background-image: url("../img/product-image product-image-cap.jpg");
 }
 .product-image-bundle {
-  background-image: url("../img/merch-bundle.jpg");
+  background-image: url("../img/product-image product-image-bundle.jpg");
 }
 
 .product-tag {

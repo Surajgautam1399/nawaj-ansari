@@ -40,7 +40,12 @@ setInterval(updateCountdown, 1000);
 // Starfield background via tsParticles
 
 document.addEventListener("DOMContentLoaded", () => {
-    
+  // Force page to start at top on load/refresh
+  if ("scrollRestoration" in window.history) {
+    window.history.scrollRestoration = "manual";
+  }
+  window.scrollTo(0, 0);
+
   if (!window.tsParticles) return;
 
   tsParticles.load("particles-bg", {
