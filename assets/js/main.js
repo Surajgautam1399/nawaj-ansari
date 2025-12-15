@@ -46,6 +46,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   window.scrollTo(0, 0);
 
+  const nav = document.querySelector("header nav");
+  const navToggle = document.querySelector(".nav-toggle");
+  const navList = document.getElementById("primary-nav");
+
+  if (nav && navToggle && navList) {
+    navToggle.addEventListener("click", () => {
+      const isOpen = nav.classList.toggle("nav-open");
+      navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+
+    navList.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        nav.classList.remove("nav-open");
+        navToggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+
   if (!window.tsParticles) return;
 
   tsParticles.load("particles-bg", {
