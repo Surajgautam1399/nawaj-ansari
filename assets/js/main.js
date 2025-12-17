@@ -49,6 +49,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const nav = document.querySelector("header nav");
   const navToggle = document.querySelector(".nav-toggle");
   const navList = document.getElementById("primary-nav");
+  const gModeToggle = document.getElementById("g-mode-toggle");
+  const body = document.body;
 
   if (nav && navToggle && navList) {
     navToggle.addEventListener("click", () => {
@@ -61,6 +63,19 @@ document.addEventListener("DOMContentLoaded", () => {
         nav.classList.remove("nav-open");
         navToggle.setAttribute("aria-expanded", "false");
       });
+    });
+  }
+
+  if (gModeToggle) {
+    const saved = localStorage.getItem("gMode") === "on";
+    if (saved) {
+      body.classList.add("g-mode");
+      gModeToggle.setAttribute("aria-pressed", "true");
+    }
+    gModeToggle.addEventListener("click", () => {
+      const isOn = body.classList.toggle("g-mode");
+      gModeToggle.setAttribute("aria-pressed", isOn ? "true" : "false");
+      localStorage.setItem("gMode", isOn ? "on" : "off");
     });
   }
 
