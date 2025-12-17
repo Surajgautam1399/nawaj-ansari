@@ -34,6 +34,21 @@ body {
   position: relative;
 }
 
+body.g-mode {
+  background: #050101;
+  color: #f7e6e6;
+  font-family: "Cormorant Garamond", serif;
+}
+
+body.g-mode .section-heading,
+body.g-mode nav a,
+body.g-mode .hero-name-backdrop,
+body.g-mode .hero-tagline,
+body.g-mode .btn,
+body.g-mode .btn-primary {
+  font-family: "Cinzel", serif;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -155,6 +170,40 @@ nav a:hover::after {
 .nav-toggle-bar::before { top: -6px; }
 .nav-toggle-bar::after  { top: 6px; }
 
+.theme-toggle {
+  margin-left: 12px;
+  padding: 9px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--accent);
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+  background: rgba(255,255,255,0.12);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 820px) {
+  .theme-toggle {
+    order: 3;
+    margin-left: 10px;
+    padding: 9px 12px;
+  }
+}
+
+@media (max-width: 520px) {
+  .theme-toggle {
+    padding: 8px 10px;
+    letter-spacing: 0.1em;
+  }
+}
+
 @media (max-width: 900px) {
   header {
     padding: 14px 5vw;
@@ -242,9 +291,50 @@ main {
 .hero-overlay-gradient {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.45), rgba(0,0,0,0.96));
+  background: linear-gradient(to bottom, rgba(4, 4, 4, 0.45), rgba(4, 4, 4, 0.96));
   z-index: 3;
   pointer-events: none;
+}
+
+/* G Mode theme overrides */
+body.g-mode .hero {
+  background: radial-gradient(circle at 20% 0%, #3a0a0a 0%, #150202 45%, #000 75%);
+}
+
+body.g-mode .hero-overlay-gradient {
+  background: linear-gradient(to bottom, rgba(40, 0, 0, 0.55), rgba(0, 0, 0, 0.96));
+}
+
+body.g-mode .hero-name-backdrop {
+  font-family: "Cinzel", serif;
+  color: #6f1214;
+  opacity: 0.7;
+  text-shadow:
+    0 2px 0 #300404,
+    0 4px 10px rgba(120,0,0,0.6),
+    0 0 18px rgba(160,0,0,0.55),
+    0 0 32px rgba(200,0,0,0.45);
+}
+
+body.g-mode .hero-tagline {
+  color: #e7d3d3;
+  letter-spacing: 0.16em;
+}
+
+body.g-mode .btn {
+  border-color: #d92020;
+  color: #f7e6e6;
+}
+
+body.g-mode .btn-primary {
+  background: #d92020;
+  color: #fff;
+}
+
+body.g-mode .hero-ribbon {
+  background: #2b0c0c;
+  color: #f2e1e1;
+  border-color: #6a1a1a;
 }
 
 .hero-content {
@@ -256,7 +346,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 18px;
+  gap: 22px;
 }
 
 .hero-name-backdrop {
@@ -295,7 +385,9 @@ main {
 
 .hero-portrait-frame {
   position: relative;
-  
+  opacity: 0;
+  filter: none;
+  pointer-events: none;
   width: min(48vw, 520px);
   max-width: 520px;
   aspect-ratio: 4/ 4;
