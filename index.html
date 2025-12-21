@@ -379,7 +379,12 @@
       </div>
 
       <div class="subscribe-card" role="form" aria-labelledby="subscribe-title">
-        <form id="subscribe-form" novalidate>
+        <form id="subscribe-form" method="POST" action="https://script.google.com/macros/s/AKfycbwgWmd65EPqDdrjz9_XecIzoYn5EO7oAvN1Mt5RKLDHxpTG0nT_LKkv32vty49W3hdC/exec" target="lead_iframe" novalidate>
+          <input type="text" id="company" name="company" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <input type="hidden" id="lead-source" name="source" value="website">
+          <input type="hidden" id="lead-page" name="page" value="">
+          <input type="hidden" id="lead-gmode" name="gMode" value="0">
+          <input type="hidden" id="lead-timestamp" name="timestamp" value="">
           <div class="subscribe-fields">
             <label class="subscribe-label" for="subscribe-name">Name (optional)</label>
             <input id="subscribe-name" name="name" type="text" autocomplete="name" placeholder="Your name" />
@@ -414,6 +419,7 @@
             Thanks — you're registered.
           </div>
         </form>
+        <iframe name="lead_iframe" id="lead_iframe" style="display:none;"></iframe>
       </div>
     </div>
   </section>
