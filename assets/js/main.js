@@ -203,8 +203,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const subscribeError = document.getElementById("subscribe-error");
   const subscribeSuccess = document.getElementById("subscribe-success");
   const subscribeSubmit = document.getElementById("subscribe-submit");
+  const leadIframe = document.getElementById("lead_iframe");
+  const leadPage = document.getElementById("lead-page");
+  const leadGMode = document.getElementById("lead-gmode");
+  const leadTimestamp = document.getElementById("lead-timestamp");
+  const honeypot = document.getElementById("company");
 
-  if (subscribeForm && subscribeEmail && subscribeSubmit && subscribeError && subscribeSuccess) {
+  if (subscribeForm && subscribeEmail && subscribeSubmit && subscribeError && subscribeSuccess && leadIframe && leadPage && leadGMode && leadTimestamp) {
     const setError = (msg) => {
       subscribeError.textContent = msg;
     };
@@ -216,58 +221,59 @@ document.addEventListener("DOMContentLoaded", () => {
 
     subscribeEmail.addEventListener("input", clearFeedback);
 
-    subscribeForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
+    subscribeForm.addEventListener("submit", (event) => {
       clearFeedback();
 
-      const name = (subscribeName?.value || "").trim();
+      if (honeypot && honeypot.value.trim() !== "") {
+        event.preventDefault();
+        return;
+      }
+
       const email = (subscribeEmail.value || "").trim();
-      const interest = (subscribeInterest?.value || "").trim();
-      const message = (subscribeMessage?.value || "").trim();
 
       if (!validateEmail(email)) {
+        event.preventDefault();
         setError("Please enter a valid email address.");
         subscribeEmail.focus();
         return;
       }
 
-      const payload = {
-        name,
-        email,
-        interest,
-        message,
-        source: "website",
-        timestamp: new Date().toISOString()
-      };
+      if (leadPage) leadPage.value = window.location.pathname;
+      if (leadGMode) leadGMode.value = document.body.classList.contains("g-mode") ? "1" : "0";
+      if (leadTimestamp) leadTimestamp.value = new Date().toISOString();
 
       subscribeSubmit.disabled = true;
       const originalLabel = subscribeSubmit.textContent;
       subscribeSubmit.textContent = "Submitting...";
 
-      try {
-        await submitLead(payload);
-
-        const stored = JSON.parse(localStorage.getItem("registeredEmails") || "[]");
-        const emailLower = email.toLowerCase();
-        if (!stored.includes(emailLower)) {
-          stored.push(emailLower);
-          localStorage.setItem("registeredEmails", JSON.stringify(stored));
-        }
+      const onIframeLoad = () => {
+        subscribeSubmit.disabled = false;
+        subscribeSubmit.textContent = originalLabel;
+        subscribeSuccess.hidden = false;
+        subscribeError.textContent = "";
 
         if (subscribeName) subscribeName.value = "";
         subscribeEmail.value = "";
         if (subscribeInterest) subscribeInterest.value = "";
         if (subscribeMessage) subscribeMessage.value = "";
 
-        subscribeSuccess.hidden = false;
-        subscribeSuccess.textContent = "Thanks — you're registered.";
-      } catch (error) {
-        console.error("Submit failed", error);
-        setError("Something went wrong. Please try again shortly.");
-      } finally {
-        subscribeSubmit.disabled = false;
-        subscribeSubmit.textContent = originalLabel;
-      }
+        leadIframe.removeEventListener("load", onIframeLoad);
+      };
+
+      leadIframe.addEventListener("load", onIframeLoad, { once: true });
+
+      // Submit the form explicitly to avoid any external preventDefault
+      event.preventDefault();
+      subscribeForm.submit();
+
+      // Fallback safety in case iframe load never fires
+      setTimeout(() => {
+        if (subscribeSubmit.disabled) {
+          subscribeSubmit.disabled = false;
+          subscribeSubmit.textContent = originalLabel;
+          setError("Please try again — connection might be slow.");
+        }
+      }, 7000);
     });
   }
 

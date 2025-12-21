@@ -257,7 +257,7 @@ nav a:hover::after {
 }
 
 main {
-  margin-top: 70px;
+  margin-top: 0;
 }
 
 /* HERO */
@@ -271,6 +271,7 @@ main {
   flex-direction: column;
   gap: 32px;
   overflow: hidden;
+  padding-top: 110px; /* makes room for fixed header while allowing background to reach it */
   background: radial-gradient(circle at 20% 0%, #151515 0%, #050505 40%, #000 70%);
   color: #fff;
 }
@@ -306,6 +307,14 @@ body.g-mode .hero-media {
 
 body.g-mode .hero-video.is-ready {
   opacity: 1;
+}
+
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
 }
 
 .hero-bg-image {
