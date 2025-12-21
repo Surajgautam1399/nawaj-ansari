@@ -4,6 +4,119 @@
 
 const targetDate = new Date("2025-08-06T19:00:00"); // local time
 
+async function submitLead(payload) {
+  const endpoint = typeof window.__LEAD_ENDPOINT__ === "string" ? window.__LEAD_ENDPOINT__ : null;
+
+  if (endpoint) {
+    await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    return;
+  }
+
+  return Promise.resolve();
+}
+
+function validateEmail(email) {
+  return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+}
+
+function initGModeHeroVideo() {
+  const heroVideo = document.querySelector(".hero-video");
+
+  if (!heroVideo) return;
+
+  const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+  const isGMode = document.body.classList.contains("g-mode");
+
+  if (prefersReducedMotion || !isGMode) {
+    heroVideo.pause();
+    heroVideo.classList.remove("is-ready");
+    heroVideo.preload = "none";
+    return;
+  }
+
+  heroVideo.preload = "auto";
+
+  if (!heroVideo.dataset.listenersAttached) {
+    heroVideo.addEventListener(
+      "canplay",
+      () => {
+        heroVideo.classList.add("is-ready");
+        console.log("Hero video ready", { src: heroVideo.currentSrc || heroVideo.src, readyState: heroVideo.readyState });
+      },
+      { once: true }
+    );
+
+    heroVideo.addEventListener("error", (e) => {
+      console.warn("Hero video error", e?.message || e);
+    });
+
+    heroVideo.dataset.listenersAttached = "true";
+  }
+
+  heroVideo.load();
+  heroVideo
+    .play()
+    .then(() => {
+      console.log("Hero video playing", { src: heroVideo.currentSrc || heroVideo.src, readyState: heroVideo.readyState });
+    })
+    .catch((err) => {
+      console.warn("Hero video autoplay blocked; keeping poster visible", err);
+      heroVideo.classList.remove("is-ready");
+    });
+}
+
+function initParticlesBackground() {
+  if (!window.tsParticles) {
+    return;
+  }
+
+  const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+
+  const baseConfig = {
+    fullScreen: { enable: false },
+    fpsLimit: 60,
+    background: { color: "transparent" },
+    particles: {
+      number: { value: prefersReducedMotion ? 0 : 45, density: { enable: true, area: 900 } },
+      color: { value: "#ffffff" },
+      shape: { type: "circle" },
+      size: { value: { min: 0.8, max: 2.2 }, random: true },
+      opacity: {
+        value: { min: 0.1, max: 0.18 },
+        animation: prefersReducedMotion
+          ? { enable: false }
+          : { enable: true, speed: 0.25, minimumValue: 0.1 }
+      },
+      move: {
+        enable: !prefersReducedMotion,
+        speed: 0.25,
+        direction: "none",
+        random: true,
+        straight: false,
+        outModes: { default: "out" }
+      },
+      links: {
+        enable: true,
+        distance: 140,
+        opacity: 0.08,
+        color: "#ffffff",
+        width: 1
+      }
+    },
+    detectRetina: true,
+    interactivity: {
+      detectsOn: "window",
+      events: { onHover: { enable: false }, onClick: { enable: false }, resize: true }
+    }
+  };
+
+  tsParticles.load("particles-bg", baseConfig);
+}
+
 function updateCountdown() {
   const now = new Date();
   const diff = targetDate - now;
@@ -76,45 +189,98 @@ document.addEventListener("DOMContentLoaded", () => {
       const isOn = body.classList.toggle("g-mode");
       gModeToggle.setAttribute("aria-pressed", isOn ? "true" : "false");
       localStorage.setItem("gMode", isOn ? "on" : "off");
+      initGModeHeroVideo();
+      setTimeout(() => window.location.reload(), 30);
+    });
+    initGModeHeroVideo();
+  }
+
+  const subscribeForm = document.getElementById("subscribe-form");
+  const subscribeName = document.getElementById("subscribe-name");
+  const subscribeEmail = document.getElementById("subscribe-email");
+  const subscribeInterest = document.getElementById("subscribe-interest");
+  const subscribeMessage = document.getElementById("subscribe-message");
+  const subscribeError = document.getElementById("subscribe-error");
+  const subscribeSuccess = document.getElementById("subscribe-success");
+  const subscribeSubmit = document.getElementById("subscribe-submit");
+
+  if (subscribeForm && subscribeEmail && subscribeSubmit && subscribeError && subscribeSuccess) {
+    const setError = (msg) => {
+      subscribeError.textContent = msg;
+    };
+
+    const clearFeedback = () => {
+      setError("");
+      subscribeSuccess.hidden = true;
+    };
+
+    subscribeEmail.addEventListener("input", clearFeedback);
+
+    subscribeForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      clearFeedback();
+
+      const name = (subscribeName?.value || "").trim();
+      const email = (subscribeEmail.value || "").trim();
+      const interest = (subscribeInterest?.value || "").trim();
+      const message = (subscribeMessage?.value || "").trim();
+
+      if (!validateEmail(email)) {
+        setError("Please enter a valid email address.");
+        subscribeEmail.focus();
+        return;
+      }
+
+      const payload = {
+        name,
+        email,
+        interest,
+        message,
+        source: "website",
+        timestamp: new Date().toISOString()
+      };
+
+      subscribeSubmit.disabled = true;
+      const originalLabel = subscribeSubmit.textContent;
+      subscribeSubmit.textContent = "Submitting...";
+
+      try {
+        await submitLead(payload);
+
+        const stored = JSON.parse(localStorage.getItem("registeredEmails") || "[]");
+        const emailLower = email.toLowerCase();
+        if (!stored.includes(emailLower)) {
+          stored.push(emailLower);
+          localStorage.setItem("registeredEmails", JSON.stringify(stored));
+        }
+
+        if (subscribeName) subscribeName.value = "";
+        subscribeEmail.value = "";
+        if (subscribeInterest) subscribeInterest.value = "";
+        if (subscribeMessage) subscribeMessage.value = "";
+
+        subscribeSuccess.hidden = false;
+        subscribeSuccess.textContent = "Thanks — you're registered.";
+      } catch (error) {
+        console.error("Submit failed", error);
+        setError("Something went wrong. Please try again shortly.");
+      } finally {
+        subscribeSubmit.disabled = false;
+        subscribeSubmit.textContent = originalLabel;
+      }
     });
   }
 
-  if (!window.tsParticles) return;
+  // If toggle not found or state changes elsewhere, ensure video matches current state.
+  initGModeHeroVideo();
 
-  tsParticles.load("particles-bg", {
-    fpsLimit: 60,
-    background: { color: "transparent" },
-    particles: {
-      number: { value: 140, density: { enable: true, area: 900 } },
-      color: { value: "#ffffff" },
-      shape: { type: "circle" },
-      size: { value: { min: 0.5, max: 2.2 }, random: true },
-      opacity: {
-        value: { min: 0.3, max: 1.8 },
-        animation: { enable: true, speed: 0.25, minimumValue: 0.15 }
-      },
-      move: {
-        enable: true,
-        speed: 0.35,
-        direction: "none",
-        random: true,
-        straight: false,
-        outModes: { default: "out" }
-      },
-      twinkle: {
-        particles: {
-          enable: true,
-          color: "#ffffff",
-          frequency: 0.06,
-          opacity: 1
-        }
-      },
-      links: { enable: false }
-    },
-    detectRetina: true,
-    interactivity: {
-      detectsOn: "window",
-      events: { onHover: { enable: false }, onClick: { enable: false }, resize: true }
-    }
-  });
+  initParticlesBackground();
+
+  // Smoke test to verify canvas creation without breaking UI
+  setTimeout(() => {
+    const canvas = document.querySelector("#particles-bg canvas");
+    const msg = canvas ? "Particles smoke test: PASS" : "Particles smoke test: FAIL";
+    console.log(msg);
+  }, 1500);
+
 });
