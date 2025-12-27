@@ -190,9 +190,41 @@ document.addEventListener("DOMContentLoaded", () => {
       gModeToggle.setAttribute("aria-pressed", isOn ? "true" : "false");
       localStorage.setItem("gMode", isOn ? "on" : "off");
       initGModeHeroVideo();
-      setTimeout(() => window.location.reload(), 30);
+      setTimeout(() => window.location.reload(), 550);
     });
     initGModeHeroVideo();
+  }
+
+  // Album section listen toggle
+  const albumToggle = document.querySelector(".album-toggle");
+  if (albumToggle) {
+    const toggleButtons = albumToggle.querySelectorAll(".album-toggle-btn");
+    const albumLinks = document.querySelectorAll(".album-link");
+
+    const setActivePlatform = (platform) => {
+      toggleButtons.forEach((button) => {
+        const isActive = button.dataset.target === platform;
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-selected", isActive ? "true" : "false");
+      });
+
+      albumLinks.forEach((link) => {
+        const isActive = link.dataset.platform === platform;
+        link.classList.toggle("is-active", isActive);
+        link.hidden = !isActive;
+      });
+    };
+
+    toggleButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = button.dataset.target;
+        if (target) {
+          setActivePlatform(target);
+        }
+      });
+    });
+
+    setActivePlatform("spotify");
   }
 
   const subscribeForm = document.getElementById("subscribe-form");
