@@ -38,7 +38,7 @@
     <nav>
       <ul id="primary-nav" class="nav-links">
         <li><a href="#tour">tour</a></li>
-        <li><a href="#merch">merch</a></li>
+        <!-- <li><a href="#merch">merch</a></li>Merch -->
         <li><a href="#about">about</a></li>
         <li><a href="#spotify">spotify</a></li>
         <li><a href="#youtube">youtube</a></li>
@@ -90,6 +90,30 @@
         <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
         <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
         <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
+         <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
+          <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
+           <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
+      </div>
+    </section>
+
+    <!-- NEW ALBUM (inserted above Spotify) -->
+    <section class="album-section" aria-labelledby="album-title">
+      <div class="album-overlay" aria-hidden="true"></div>
+      <div class="album-content">
+        <p class="section-label">New Album</p>
+        <h2 class="section-heading" id="album-title">New Album – Coming Soon</h2>
+        <p class="album-meta">Dropping January</p>
+        <p class="album-text">Pre-save and follow to be first in line when the album lands.</p>
+
+        <div class="album-toggle" role="tablist" aria-label="Listen links">
+          <button class="album-toggle-btn is-active" type="button" role="tab" aria-selected="true" data-target="spotify">Spotify</button>
+          <button class="album-toggle-btn" type="button" role="tab" aria-selected="false" data-target="youtube">YouTube</button>
+        </div>
+
+        <div class="album-links">
+          <a class="album-link is-active" data-platform="spotify" href="#">Listen here on Spotify</a>
+          <a class="album-link" data-platform="youtube" href="#">Listen here on YouTube</a>
+        </div>
       </div>
     </section>
 
@@ -201,107 +225,110 @@
       </div>
     </section>
 
-    <!-- MERCH -->
-    <section id="merch" class="merch">
-      <div class="merch-header-row">
-        <div>
-          <p class="section-label">Store</p>
-          <h2 class="section-heading">Merch &amp; drops</h2>
+    <!--
+      NOTE: Merch section intentionally disabled; planned to re-enable later.
+      MERCH SECTION
+      <section id="merch" class="merch">
+        <div class="merch-header-row">
+          <div>
+            <p class="section-label">Store</p>
+            <h2 class="section-heading">Merch &amp; drops</h2>
+          </div>
+          <p class="merch-subtext">
+            Limited-run tees, hoodies, and caps inspired by the live show "SAMRAJYA TOUR". 
+            Once they’re gone, they’re gone. All orders ship worldwide.
+          </p>
         </div>
-        <p class="merch-subtext">
-          Limited-run tees, hoodies, and caps inspired by the live show "SAMRAJYA TOUR". 
-          Once they’re gone, they’re gone. All orders ship worldwide.
-        </p>
-      </div>
 
-      <div class="merch-grid">
-        <!-- Tee -->
-        <article class="product-card">
-          <div class="product-image-wrap">
-            <div class="product-image product-image-tee">
-               <img src="assets/img/product-image product-image-tee.PNG" alt="RINASA" class="product-image product-image-tee">
+        <div class="merch-grid">
+          TEE
+          <article class="product-card">
+            <div class="product-image-wrap">
+              <div class="product-image product-image-tee">
+                 <img src="assets/img/product-image product-image-tee.PNG" alt="RINASA" class="product-image product-image-tee">
+              </div>
+              
+              <div class="product-tag">New</div>
+             
             </div>
-            
-            <div class="product-tag">New</div>
-           
-          </div>
-          <div class="product-body">
-            <h3 class="product-name">"SAMRAJYA" Tour Tee</h3>
-            <div class="product-meta-row">
-              <span>Black / S–XXL</span>
-              <span class="product-price">$40</span>
+            <div class="product-body">
+              <h3 class="product-name">"SAMRAJYA" Tour Tee</h3>
+              <div class="product-meta-row">
+                <span>Black / S–XXL</span>
+                <span class="product-price">$40</span>
+              </div>
             </div>
-          </div>
-          <div class="product-footer">
-            <span>Ships in 3–5 days</span>
-            <button>Add to cart</button>
-          </div>
-        </article>
+            <div class="product-footer">
+              <span>Ships in 3–5 days</span>
+              <button>Add to cart</button>
+            </div>
+          </article>
 
-        <!-- Hoodie -->
-        <article class="product-card">
-          <div class="product-image-wrap">
-            <div class="product-image product-image-hoodie">
-              <img src="assets/img/product-image product-image-hoodie.PNG" alt="RINASA" class="product-image product-image-hoodie">
+          HOODIE
+          <article class="product-card">
+            <div class="product-image-wrap">
+              <div class="product-image product-image-hoodie">
+                <img src="assets/img/product-image product-image-hoodie.PNG" alt="RINASA" class="product-image product-image-hoodie">
+              </div>
+              <div class="product-tag">Drop</div>
             </div>
-            <div class="product-tag">Drop</div>
-          </div>
-          <div class="product-body">
-            <h3 class="product-name">REAL G Hoodie</h3>
-            <div class="product-meta-row">
-              <span>Heavyweight fleece</span>
-              <span class="product-price">$75</span>
+            <div class="product-body">
+              <h3 class="product-name">REAL G Hoodie</h3>
+              <div class="product-meta-row">
+                <span>Heavyweight fleece</span>
+                <span class="product-price">$75</span>
+              </div>
             </div>
-          </div>
-          <div class="product-footer">
-            <span>Low stock</span>
-            <button>Add to cart</button>
-          </div>
-        </article>
+            <div class="product-footer">
+              <span>Low stock</span>
+              <button>Add to cart</button>
+            </div>
+          </article>
 
-        <!-- Cap -->
-        <article class="product-card">
-          <div class="product-image-wrap">
-            <div class="product-image product-image-cap">
-              <img src="assets/img/product-image product-image-cap.PNG" alt="RINASA" class="product-image product-image-cap">
+          CAP
+          <article class="product-card">
+            <div class="product-image-wrap">
+              <div class="product-image product-image-cap">
+                <img src="assets/img/product-image product-image-cap.PNG" alt="RINASA" class="product-image product-image-cap">
+              </div>
+              <div class="product-tag">Capsule</div>
             </div>
-            <div class="product-tag">Capsule</div>
-          </div>
-          <div class="product-body">
-            <h3 class="product-name">DHAKA Cap</h3>
-            <div class="product-meta-row">
-              <span>DHAKA COLLECTION snapback</span>
-              <span class="product-price">$32</span>
+            <div class="product-body">
+              <h3 class="product-name">DHAKA Cap</h3>
+              <div class="product-meta-row">
+                <span>DHAKA COLLECTION snapback</span>
+                <span class="product-price">$32</span>
+              </div>
             </div>
-          </div>
-          <div class="product-footer">
-            <span>One size</span>
-            <button>Add to cart</button>
-          </div>
-        </article>
+            <div class="product-footer">
+              <span>One size</span>
+              <button>Add to cart</button>
+            </div>
+          </article>
 
-        <!-- Bundle -->
-        <article class="product-card">
-          <div class="product-image-wrap">
-            <div class="product-image product-image-bundle">
-               <img src="assets/img/product-image product-image-bundle.PNG" alt="RINASA" class="product-image product-image-bundle">
+          BUNDLE
+          <article class="product-card">
+            <div class="product-image-wrap">
+              <div class="product-image product-image-bundle">
+                 <img src="assets/img/product-image product-image-bundle.PNG" alt="RINASA" class="product-image product-image-bundle">
+              </div>
+              <div class="product-tag">Bundle</div>
             </div>
-            <div class="product-tag">Bundle</div>
-          </div>
-          <div class="product-body">
-            <h3 class="product-name">SAMRAJYA Tour Starter Pack</h3>
-            <div class="product-meta-row">
-              <span>Tee + cap + wristband</span>
-              <span class="product-price">$95</span>
+            <div class="product-body">
+              <h3 class="product-name">SAMRAJYA Tour Starter Pack</h3>
+              <div class="product-meta-row">
+                <span>Tee + cap + wristband</span>
+                <span class="product-price">$95</span>
+              </div>
             </div>
-          </div>
-          <div class="product-footer">
-            <span>Includes digital booklet</span>
-            <button>Add to cart</button>
-          </div>
-        </article>
-      </div>
-    </section>
+            <div class="product-footer">
+              <span>Includes digital booklet</span>
+              <button>Add to cart</button>
+            </div>
+          </article>
+        </div>
+      </section>
+    -->
 
      <!-- YOUTUBE -->
     <section id="youtube" class="spotify-section">
@@ -424,21 +451,21 @@
     </div>
   </section>
 
-    <div class="footer-links">
-      <a href="https://www.instagram.com/nawaj.ansari/" target="_blank" rel="noopener noreferrer">
-        <img class="social-icon-img" src="assets/img/Instagram.png" alt="" aria-hidden="true" />
+    <div class="footer-links social-glass-row">
+      <a class="social-glass" href="https://www.instagram.com/nawaj.ansari/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <img class="social-icon-img social-glass-icon" src="assets/img/Instagram.png" alt="" aria-hidden="true" />
         <span class="sr-only">Instagram</span>
       </a>
-      <a href="https://open.spotify.com/artist/3dSiKDhXz6jbBNxFGSWO1y?si=0yKn-tgnSQ-V-ELWR9QOOQ" target="_blank" rel="noopener noreferrer">
-        <img class="social-icon-img" src="assets/img/Spotify.png" alt="" aria-hidden="true" />
+      <a class="social-glass" href="https://open.spotify.com/artist/3dSiKDhXz6jbBNxFGSWO1y?si=0yKn-tgnSQ-V-ELWR9QOOQ" target="_blank" rel="noopener noreferrer" aria-label="Spotify">
+        <img class="social-icon-img social-glass-icon" src="assets/img/Spotify.png" alt="" aria-hidden="true" />
         <span class="sr-only">Spotify</span>
       </a>
-      <a href="https://www.youtube.com/channel/UCcTQqNP3v_mhO8UW9GAMx9w" target="_blank" rel="noopener noreferrer">
-        <img class="social-icon-img" src="assets/img/Youtube.png" alt="" aria-hidden="true" />
+      <a class="social-glass" href="https://www.youtube.com/channel/UCcTQqNP3v_mhO8UW9GAMx9w" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+        <img class="social-icon-img social-glass-icon" src="assets/img/Youtube.png" alt="" aria-hidden="true" />
         <span class="sr-only">YouTube</span>
       </a>
-      <a href="https://www.tiktok.com/@nawajansari20?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer">
-        <img class="social-icon-img" src="assets/img/Tiktok.png" alt="" aria-hidden="true" />
+      <a class="social-glass" href="https://www.tiktok.com/@nawajansari20?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+        <img class="social-icon-img social-glass-icon" src="assets/img/Tiktok.png" alt="" aria-hidden="true" />
         <span class="sr-only">TikTok</span>
       </a>
     </div>
