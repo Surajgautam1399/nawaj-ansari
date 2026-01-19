@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tour Hub – Nawaj Ansari</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&family=Inter:wght@300;400;600&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@400;500;700&family=MedievalSharp&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script src="assets/js/main.js" defer></script>
+</head>
+<body class="tour-hub-page">
+  <main class="tour-hub">
+    <div class="tour-hub-top">
+      <a class="tour-hub-back" href="index.html#tour">← Back to tour hub</a>
+      <button class="tour-hub-audio" type="button">Enable sound for better experience</button>
+    </div>
+
+    <div class="tour-hub-shell">
+      <section class="tour-hub-card tour-hub-details" aria-labelledby="tour-hub-title">
+        <div class="tour-hub-location">
+          <p class="tour-hub-region" id="tour-hub-region">City</p>
+          <h1 class="tour-hub-title" id="tour-hub-title">TBA • TBA</h1>
+          <p class="tour-hub-sub" id="tour-hub-venue">Venue TBA</p>
+        </div>
+
+        <div class="tour-hub-count" id="tour-hub-count">0 on the waitlist</div>
+
+        <div class="tour-hub-countdown">
+          <p class="tour-hub-label">Countdown to showtime</p>
+          <div class="tour-hub-countdown-grid" role="timer" aria-live="polite">
+            <div class="tour-hub-countdown-item">
+              <div class="tour-hub-countdown-number" id="hub-days">00</div>
+              <div class="tour-hub-countdown-label">days</div>
+            </div>
+            <div class="tour-hub-countdown-item">
+              <div class="tour-hub-countdown-number" id="hub-hours">00</div>
+              <div class="tour-hub-countdown-label">hours</div>
+            </div>
+            <div class="tour-hub-countdown-item">
+              <div class="tour-hub-countdown-number" id="hub-seconds">00</div>
+              <div class="tour-hub-countdown-label">seconds</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tour-hub-info-grid">
+          <div class="tour-hub-info-card">
+            <p class="tour-hub-info-label">Venue location</p>
+            <p class="tour-hub-info-value" id="tour-hub-location">TBA</p>
+          </div>
+          <div class="tour-hub-info-card">
+            <p class="tour-hub-info-label">Date</p>
+            <p class="tour-hub-info-value" id="tour-hub-date">TBA</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="tour-hub-card tour-hub-form-card" aria-labelledby="tour-hub-form-title">
+        <div class="tour-hub-form-header">
+          <p class="tour-hub-form-label">Join waitlist</p>
+          <h2 class="tour-hub-form-title" id="tour-hub-form-title">Lock in your waitlist spot</h2>
+          <p class="tour-hub-form-sub">Submit your details for this city. Updates go out in order of the list.</p>
+        </div>
+
+        <form class="tour-hub-form" id="tour-hub-form" novalidate>
+          <div class="tour-hub-form-row">
+            <label class="tour-hub-field">
+              <span>First Name *</span>
+              <input type="text" name="firstName" autocomplete="given-name" required />
+            </label>
+            <label class="tour-hub-field">
+              <span>Last Name *</span>
+              <input type="text" name="lastName" autocomplete="family-name" required />
+            </label>
+          </div>
+
+          <label class="tour-hub-field">
+            <span>Email Address *</span>
+            <input type="email" name="email" autocomplete="email" required />
+          </label>
+
+          <div class="tour-hub-form-row">
+            <label class="tour-hub-field">
+              <span>Phone *</span>
+              <input type="tel" name="phone" autocomplete="tel" required />
+            </label>
+            <label class="tour-hub-field">
+              <span>Postcode *</span>
+              <input type="text" name="postcode" autocomplete="postal-code" required />
+            </label>
+          </div>
+
+          <label class="tour-hub-consent">
+            <input type="checkbox" name="consent" required />
+            <span>I agree to the privacy policy and terms of service.</span>
+          </label>
+
+          <button class="tour-hub-submit" type="submit">Join waitlist</button>
+          <div class="tour-hub-status" id="tour-hub-status" role="status" aria-live="polite"></div>
+        </form>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

@@ -59,6 +59,7 @@
       <div class="hero-bg-image"></div>
       <div class="hero-overlay-image"></div>
  <div class="hero-overlay-gradient"></div>
+      <div class="hero-droplets" aria-hidden="true"></div>
 <div class="hero-content">
         <div class="hero-name-backdrop">NAWAJ<br />ANSARI</div>
 <div class="hero-visual">
@@ -113,6 +114,48 @@
         <div class="album-links">
           <a class="album-link is-active" data-platform="spotify" href="#">Listen here on Spotify</a>
           <a class="album-link" data-platform="youtube" href="#">Listen here on YouTube</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ALBUMS (inserted below New Album) -->
+    <section class="albums-section" aria-labelledby="albums-title">
+      <p class="section-label">Albums</p>
+      <h2 class="section-heading" id="albums-title">Albums in Orbit</h2>
+
+      <div class="albums-stage" style="--quantity: 6;">
+        <div class="albums-portrait" aria-hidden="true">
+          <!-- add the potrait when needed -->
+        </div>
+
+        <div class="albums-ring" role="list"
+        >
+          
+          <!-- Placeholder album covers + YouTube links -->
+          <a class="album-card" href="https://www.youtube.com/playlist?list=PLACEHOLDER_ALBUM_01" target="_blank" rel="noopener" style="--position: 1;">
+            <span class="album-card-title">GAKO</span>
+            <img src="./assets/img/ALBUM_01.png" alt="Placeholder album cover">
+          </a>
+          <a class="album-card" href="https://www.youtube.com/playlist?list=PLACEHOLDER_ALBUM_02" target="_blank" rel="noopener" style="--position: 2;">
+            <span class="album-card-title">25 IN THE RAIN</span>
+            <img src="./assets/img/ALBUM_02.png" alt="Placeholder album cover">
+          </a>
+          <a class="album-card" href="https://www.youtube.com/playlist?list=PLACEHOLDER_ALBUM_03" target="_blank" rel="noopener" style="--position: 3;">
+            <span class="album-card-title">HAZZAR QUITAB PART 1</span>
+            <img src="./assets/img/ALBUM_03.png" alt="Placeholder album cover">
+          </a>
+          <a class="album-card" href="https://www.youtube.com/playlist?list=PLACEHOLDER_ALBUM_04" target="_blank" rel="noopener" style="--position: 4;">
+            <span class="album-card-title">HAZZAR QUITAB PART 2</span>
+            <img src="./assets/img/ALBUM_04.png" alt="Placeholder album cover">
+          </a>
+          <a class="album-card" href="https://www.youtube.com/playlist?list=PLACEHOLDER_ALBUM_05" target="_blank" rel="noopener" style="--position: 5;">
+            <span class="album-card-title">RETRIBUTION</span>
+            <img src="./assets/img/ALBUM_05.png" alt="Placeholder album cover">
+          </a>
+          <a class="album-card" href="https://www.youtube.com/playlist?list=PLACEHOLDER_ALBUM_06" target="_blank" rel="noopener" style="--position: 6;">
+            <span class="album-card-title">MILITARY MINDSET</span>
+            <img src="./assets/img/ALBUM_06.png" alt="Placeholder album cover">
+          </a>
         </div>
       </div>
     </section>
@@ -183,45 +226,17 @@
             </div>
           </div>
 
-          <p class="countdown-meta">
+          <p class="countdown-meta" id="next-show-text">
             Club Deja Vu • Feb 05, 2026 • Doors 10:00 PM
           </p>
 
           <div class="tour-cta">
-            <button class="btn btn-primary">Buy tickets</button>
+            <a class="btn btn-primary" id="next-show-link" href="#" target="_blank" rel="noopener">Buy tickets</a>
           </div>
         </div>
 
         <!-- TOUR DATES LIST -->
-        <div class="tour-list">
-          <div class="tour-item">
-            <div class="tour-item-date">Feb 05 • 2026</div>
-            <div class="tour-item-location">Kathmandu, NP</div>
-            <div class="tour-item-venue">Club Deja Vu</div>
-            <div class="tour-item-action"><button>Tickets</button></div>
-          </div>
-
-          <div class="tour-item">
-            <div class="tour-item-date">Feb 12 • 2026</div>
-            <div class="tour-item-location">Pokhara, NP</div>
-            <div class="tour-item-venue">Ozone Club</div>
-            <div class="tour-item-action"><button>Tickets</button></div>
-          </div>
-
-          <div class="tour-item">
-            <div class="tour-item-date">Feb 19 • 2026</div>
-            <div class="tour-item-location">Butwal, NP</div>
-            <div class="tour-item-venue">The Factory Lounge</div>
-            <div class="tour-item-action"><button>Tickets</button></div>
-          </div>
-
-          <div class="tour-item">
-            <div class="tour-item-date">Feb 26 • 2026</div>
-            <div class="tour-item-location">Chitwan, NP</div>
-            <div class="tour-item-venue">Rhino Lounge</div>
-            <div class="tour-item-action"><button>Tickets</button></div>
-          </div>
-        </div>
+        <div class="tour-list" id="tour-list"></div>
       </div>
     </section>
 
