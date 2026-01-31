@@ -78,9 +78,7 @@
           <button class="btn btn-primary" onclick="document.getElementById('tour').scrollIntoView({behavior:'smooth'})">
             Next show – tickets
           </button>
-          <!--<button class="btn" onclick="document.getElementById('merch').scrollIntoView({behavior:'smooth'})">
-            Shop merch -->
-          </button>
+          <!-- <button class="btn" onclick="document.getElementById('merch').scrollIntoView({behavior:'smooth'})">Shop merch</button> -->
         </div>
       </div>
 
@@ -120,42 +118,50 @@
 
     <!-- ALBUMS (inserted below New Album) -->
     <section class="albums-section" aria-labelledby="albums-title">
-      <p class="section-label">Albums</p>
-      <h2 class="section-heading" id="albums-title">Albums in Orbit</h2>
+      <div class="albums-bg-video" aria-hidden="true">
+        <video autoplay muted loop playsinline preload="metadata">
+          <source src="./assets/video/albums-bg1.mp4" type="video/mp4">
+        </video>
+      </div>
 
-      <div class="albums-stage" style="--quantity: 6;">
-        <div class="albums-portrait" aria-hidden="true">
-          <!-- add the potrait when needed -->
-        </div>
+      <div class="albums-content">
+        <p class="section-label">NAWAJ ANSARI's</p>
+        <h2 class="section-heading" id="albums-title">Albums in Orbit</h2>
 
-        <div class="albums-ring" role="list"
-        >
-          
-          <!-- Placeholder album covers + YouTube links -->
-          <a class="album-card" href="https://www.youtube.com/playlist?list=PLACEHOLDER_ALBUM_01" target="_blank" rel="noopener" style="--position: 1;">
-            <span class="album-card-title">GAKO</span>
-            <img src="./assets/img/ALBUM_01.png" alt="Placeholder album cover">
-          </a>
-          <a class="album-card" href="https://www.youtube.com/playlist?list=PLACEHOLDER_ALBUM_02" target="_blank" rel="noopener" style="--position: 2;">
-            <span class="album-card-title">25 IN THE RAIN</span>
-            <img src="./assets/img/ALBUM_02.png" alt="Placeholder album cover">
-          </a>
-          <a class="album-card" href="https://www.youtube.com/playlist?list=PLACEHOLDER_ALBUM_03" target="_blank" rel="noopener" style="--position: 3;">
-            <span class="album-card-title">HAZZAR QUITAB PART 1</span>
-            <img src="./assets/img/ALBUM_03.png" alt="Placeholder album cover">
-          </a>
-          <a class="album-card" href="https://www.youtube.com/playlist?list=PLACEHOLDER_ALBUM_04" target="_blank" rel="noopener" style="--position: 4;">
-            <span class="album-card-title">HAZZAR QUITAB PART 2</span>
-            <img src="./assets/img/ALBUM_04.png" alt="Placeholder album cover">
-          </a>
-          <a class="album-card" href="https://www.youtube.com/playlist?list=PLACEHOLDER_ALBUM_05" target="_blank" rel="noopener" style="--position: 5;">
-            <span class="album-card-title">RETRIBUTION</span>
-            <img src="./assets/img/ALBUM_05.png" alt="Placeholder album cover">
-          </a>
-          <a class="album-card" href="https://www.youtube.com/playlist?list=PLACEHOLDER_ALBUM_06" target="_blank" rel="noopener" style="--position: 6;">
-            <span class="album-card-title">MILITARY MINDSET</span>
-            <img src="./assets/img/ALBUM_06.png" alt="Placeholder album cover">
-          </a>
+        <div class="albums-stage" style="--quantity: 6;">
+          <div class="albums-portrait" aria-hidden="true">
+            <!-- add the potrait when needed -->
+          </div>
+
+          <div class="albums-ring" role="list"
+          >
+            
+            <!-- Placeholder album covers + YouTube links -->
+            <a class="album-card" href="https://www.youtube.com/watch?v=nabCqLmkIR4&list=PLODwOLMhpdH8O68ykq5B9tGpAmnkYxR3X" target="_blank" rel="noopener" style="--position: 1;">
+              <span class="album-card-title">GAKO</span>
+              <img src="./assets/img/ALBUM_01.png" alt="Placeholder album cover">
+            </a>
+            <a class="album-card" href="https://www.youtube.com/watch?v=PrBLvACROFk&list=PLODwOLMhpdH8IsfdiRRRoIc6NyNYDHppJ" target="_blank" rel="noopener" style="--position: 2;">
+              <span class="album-card-title">25 IN THE RAIN</span>
+              <img src="./assets/img/ALBUM_02.png" alt="Placeholder album cover">
+            </a>
+            <a class="album-card" href="https://www.youtube.com/watch?v=slLv5e8q6s8&list=PLODwOLMhpdH8GDBuFEhC_RL_xEwn2OPW-" target="_blank" rel="noopener" style="--position: 3;">
+              <span class="album-card-title">HAZZAR QUITAB PART A</span>
+              <img src="./assets/img/ALBUM_03.png" alt="Placeholder album cover">
+            </a>
+            <a class="album-card" href="https://www.youtube.com/watch?v=0WE-O9oq5hg&list=PLODwOLMhpdH8sA4do34KixFazA90VYLhD" target="_blank" rel="noopener" style="--position: 4;">
+              <span class="album-card-title">HAZZAR QUITAB PART B</span>
+              <img src="./assets/img/ALBUM_04.png" alt="Placeholder album cover">
+            </a>
+            <a class="album-card" href="https://www.youtube.com/watch?v=bb1HMIRyrNk&list=PLODwOLMhpdH-mkvPA8A5OOkdwgotG5Szm" target="_blank" rel="noopener" style="--position: 5;">
+              <span class="album-card-title">RETRIBUTION</span>
+              <img src="./assets/img/ALBUM_05.png" alt="Placeholder album cover">
+            </a>
+            <a class="album-card" href="https://www.youtube.com/@NawajAnsari" target="_blank" rel="noopener" style="--position: 6;">
+              <span class="album-card-title">MILITARY MINDSET</span>
+              <img src="./assets/img/ALBUM_06.png" alt="Placeholder album cover">
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -205,7 +211,7 @@
         <!-- COUNTDOWN CARD -->
         <div class="countdown-card">
           <div class="countdown-title">Next stop</div>
-          <div class="countdown-event">Kathmandu • SAMRAJYA Tour</div>
+          <div class="countdown-event">Next show loading...</div>
 
           <div class="countdown" id="countdown">
             <div class="countdown-unit">
@@ -226,9 +232,7 @@
             </div>
           </div>
 
-          <p class="countdown-meta" id="next-show-text">
-            Club Deja Vu • Feb 05, 2026 • Doors 10:00 PM
-          </p>
+          <p class="countdown-meta" id="next-show-text">Tour dates updating...</p>
 
           <div class="tour-cta">
             <a class="btn btn-primary" id="next-show-link" href="#" target="_blank" rel="noopener">Buy tickets</a>
@@ -238,6 +242,115 @@
         <!-- TOUR DATES LIST -->
         <div class="tour-list" id="tour-list"></div>
       </div>
+    </section>
+
+    <section id="cities" class="cities-archive" aria-labelledby="cities-heading">
+      <div class="cities-bg-layer cities-bg-current" id="cities-bg-current" aria-hidden="true"></div>
+      <div class="cities-bg-layer cities-bg-next" id="cities-bg-next" aria-hidden="true"></div>
+      <div class="cities-archive-header">
+        <p class="section-label">Archive</p>
+        <h2 class="section-heading" id="cities-heading">Tour Cities Archive</h2>
+        <p class="cities-archive-subtext">A stacked archive of the cities that shaped the tour run.</p>
+      </div>
+
+        <div class="cities-archive-grid">
+          <div class="cities-deck-wrap">
+            <div class="cities-deck" id="cities-deck" role="listbox" aria-label="Tour city archive"></div>
+            <div class="cities-scrubber" id="cities-scrubber" role="group" aria-label="Tour cities scrubber" tabindex="0">
+              <button class="cities-scrub-btn" type="button" id="cities-scrub-up" aria-label="Previous city">▲</button>
+              <div class="cities-scrub-track" aria-hidden="true"></div>
+              <button class="cities-scrub-btn" type="button" id="cities-scrub-down" aria-label="Next city">▼</button>
+            </div>
+            <div class="cities-deck-counter" id="cities-deck-counter" aria-hidden="true">1 / 1</div>
+            <p class="cities-deck-hint">Tap a city to bring the file forward.</p>
+          </div>
+
+          <div class="city-mini-panel" id="city-mini-panel" aria-live="polite">
+            <div class="city-mini-panel-text">
+              <div class="city-mini-panel-title" id="city-mini-panel-title">Select a city</div>
+              <div class="city-mini-panel-meta" id="city-mini-panel-meta">Tour leg details appear here.</div>
+            </div>
+            <button class="city-mini-panel-btn" type="button" id="city-mini-panel-btn" aria-expanded="false">
+              Details
+            </button>
+          </div>
+
+          <aside class="city-panel" id="city-panel" aria-live="polite">
+            <div class="city-panel-header">
+              <p class="city-panel-label">City Panel</p>
+              <h3 class="city-panel-title" id="city-panel-title">Select a city</h3>
+              <p class="city-panel-meta" id="city-panel-meta">Tour leg details appear here.</p>
+              <button class="city-panel-close" type="button" id="city-panel-close" aria-label="Close details">Close</button>
+            </div>
+
+          <div class="city-panel-stats">
+            <div class="city-panel-stat">
+              <span class="stat-label">Attendance</span>
+              <span class="stat-value" id="city-panel-attendance">—</span>
+            </div>
+            <div class="city-panel-stat">
+              <span class="stat-label">Shows</span>
+              <span class="stat-value" id="city-panel-shows">—</span>
+            </div>
+            <div class="city-panel-stat" id="city-panel-merch-row">
+              <span class="stat-label">Merch sold</span>
+              <span class="stat-value" id="city-panel-merch">—</span>
+            </div>
+          </div>
+
+          <div class="city-panel-highlights-wrap">
+            <div class="city-panel-highlights-title">Highlights</div>
+            <ul class="city-panel-highlights" id="city-panel-highlights"></ul>
+          </div>
+
+          <div class="city-panel-gallery" id="city-panel-gallery-wrap">
+            <div class="city-panel-gallery-title">Gallery preview</div>
+            <p class="city-panel-gallery-empty" id="city-panel-gallery-empty" hidden>Gallery coming soon.</p>
+            <div class="city-panel-stacks" id="city-panel-stacks"></div>
+            <button class="city-panel-gallery-toggle" type="button" id="city-panel-gallery-toggle" aria-expanded="false" hidden>
+              View more galleries
+            </button>
+            <div class="city-panel-grid" id="city-panel-grid"></div>
+          </div>
+
+          <button class="btn btn-primary city-panel-btn" type="button" id="city-panel-gallery" data-action="open-gallery">
+            View Galleries
+          </button>
+        </aside>
+      </div>
+
+      <div class="city-gallery-drawer" id="city-gallery-drawer" aria-hidden="true">
+        <div class="city-gallery-drawer-inner">
+          <div class="city-gallery-tile"></div>
+          <div class="city-gallery-tile"></div>
+          <div class="city-gallery-tile"></div>
+        </div>
+      </div>
+
+      <div class="city-panel-overlay" id="city-panel-overlay" hidden></div>
+
+      <template id="city-card-template">
+        <button class="city-card" type="button" role="option" aria-selected="false">
+          <span class="city-card-corner city-card-corner--tl"></span>
+          <span class="city-card-corner city-card-corner--br"></span>
+          <span class="city-card-emblem" aria-hidden="true"></span>
+          <div class="city-card-media">
+            <div class="city-card-placeholder" aria-hidden="true">Add image</div>
+            <img class="city-card-image" alt="" loading="lazy" />
+          </div>
+      <div class="city-card-top">
+        <div class="city-card-name"></div>
+        <span class="city-card-status"></span>
+      </div>
+          <div class="city-card-meta">
+            <span class="city-card-region"></span>
+            <span class="city-card-year"></span>
+          </div>
+          <div class="city-card-footer">
+            <span class="city-card-attendance"></span>
+          </div>
+        </button>
+      </template>
     </section>
 
     <!--
@@ -259,12 +372,8 @@
           TEE
           <article class="product-card">
             <div class="product-image-wrap">
-              <div class="product-image product-image-tee">
-                 <img src="assets/img/product-image product-image-tee.PNG" alt="RINASA" class="product-image product-image-tee">
-              </div>
-              
+              <img src="assets/img/product-image-tee.PNG" alt="RINASA" class="product-image" />
               <div class="product-tag">New</div>
-             
             </div>
             <div class="product-body">
               <h3 class="product-name">"SAMRAJYA" Tour Tee</h3>
@@ -282,9 +391,7 @@
           HOODIE
           <article class="product-card">
             <div class="product-image-wrap">
-              <div class="product-image product-image-hoodie">
-                <img src="assets/img/product-image product-image-hoodie.PNG" alt="RINASA" class="product-image product-image-hoodie">
-              </div>
+              <img src="assets/img/product-image-hoodie.PNG" alt="RINASA" class="product-image" />
               <div class="product-tag">Drop</div>
             </div>
             <div class="product-body">
@@ -303,9 +410,7 @@
           CAP
           <article class="product-card">
             <div class="product-image-wrap">
-              <div class="product-image product-image-cap">
-                <img src="assets/img/product-image product-image-cap.PNG" alt="RINASA" class="product-image product-image-cap">
-              </div>
+              <img src="assets/img/product-image-cap.PNG" alt="RINASA" class="product-image" />
               <div class="product-tag">Capsule</div>
             </div>
             <div class="product-body">
@@ -324,9 +429,7 @@
           BUNDLE
           <article class="product-card">
             <div class="product-image-wrap">
-              <div class="product-image product-image-bundle">
-                 <img src="assets/img/product-image product-image-bundle.PNG" alt="RINASA" class="product-image product-image-bundle">
-              </div>
+              <img src="assets/img/product-image-bundle.PNG" alt="RINASA" class="product-image" />
               <div class="product-tag">Bundle</div>
             </div>
             <div class="product-body">
@@ -380,8 +483,6 @@
     </section>
 
 
-
-  </section>
 
     <!-- ABOUT -->
     <section id="about" class="about">
@@ -483,6 +584,18 @@
         <img class="social-icon-img social-glass-icon" src="assets/img/Tiktok.png" alt="" aria-hidden="true" />
         <span class="sr-only">TikTok</span>
       </a>
+    </div>
+
+    <div class="city-modal" id="city-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="city-modal-title" hidden>
+      <div class="city-modal-dialog" role="document">
+        <button class="city-modal-close" type="button" data-action="close-modal" aria-label="Close gallery">Close</button>
+        <div class="city-modal-header">
+          <h3 class="city-modal-title" id="city-modal-title">City Gallery</h3>
+          <p class="city-modal-meta" id="city-modal-meta"></p>
+          <p class="city-modal-stats" id="city-modal-stats"></p>
+        </div>
+        <div class="city-modal-grid" id="city-modal-grid"></div>
+      </div>
     </div>
   </main>
 

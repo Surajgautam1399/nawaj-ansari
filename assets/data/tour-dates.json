@@ -1,20 +1,375 @@
-[
-  {
-    "id": "ktm-2026-02-05",
-    "title": "SAMRAJYA Tour",
-    "city": "Kathmandu, NP",
-    "venue": "Club Deja Vu",
-    "start": "2026-02-05T22:00:00+05:45",
-    "doorsText": "Doors 10:00 PM",
-    "ticketsUrl": "https://example.com"
+{
+  
+  "cities": {
+    "kathmandu-np": {
+      "name": "Kathmandu",
+      "region": "Nepal",
+      "yearLabel": "2025 • Tour",
+      "highlights": ["Capital city opener", "High-altitude energy"],
+      "attendance": null,
+      "merchSold": null,
+      "imageBase": "assets/img/cities/kathmandu/kathmandu-480.jpg",
+      "aura": { "a": "rgba(120, 180, 255, 0.22)", "b": "rgba(120, 255, 230, 0.18)" },
+      "galleryCount": 12,
+      "gallery": []
+    },
+
+    "pokhara-np": {
+      "name": "Pokhara",
+      "region": "Nepal",
+      "yearLabel": "2025 • Tour",
+      "highlights": ["Lakeside night set", "Mountain backdrop"],
+      "attendance": null,
+      "merchSold": null,
+      "imageBase": "assets/img/cities/pokhara/pokhara-480.jpg",
+      "aura": { "a": "rgba(96, 210, 255, 0.2)", "b": "rgba(160, 140, 255, 0.16)" },
+      "galleryCount": 12,
+      "gallery": []
+    },
+
+    "butwal-np": {
+      "name": "Butwal",
+      "region": "Nepal",
+      "yearLabel": "2025 • Tour",
+      "highlights": ["Southern belt takeover", "High crowd engagement"],
+      "attendance": null,
+      "merchSold": null,
+      "imageBase": "assets/img/cities/butwal/butwal-480.jpg",
+      "aura": { "a": "rgba(255, 160, 120, 0.2)", "b": "rgba(255, 220, 140, 0.18)" },
+      "galleryCount": 12,
+      "gallery": []
+    },
+
+    "toronto-ca": {
+      "name": "Toronto",
+      "region": "Canada",
+      "yearLabel": "2025 • Tour",
+      "highlights": ["North American debut", "Late-night warehouse vibe"],
+      "attendance": null,
+      "merchSold": null,
+      "imageBase": "assets/img/cities/toronto/toronto-480.jpeg",
+      "aura": { "a": "rgba(120, 180, 255, 0.2)", "b": "rgba(180, 120, 255, 0.18)" },
+      "galleryCount": 12,
+      "gallery": []
+    },
+
+    "dubai-ae": {
+      "name": "Dubai",
+      "region": "UAE",
+      "yearLabel": "2025 • Tour",
+      "highlights": ["Desert skyline show", "Luxury production"],
+      "attendance": null,
+      "merchSold": null,
+      "imageBase": "assets/img/cities/dubai/dubai-480.jpeg",
+      "aura": { "a": "rgba(255, 200, 120, 0.22)", "b": "rgba(255, 120, 160, 0.16)" },
+      "galleryCount": 12,
+      "gallery": []
+    },
+
+    "melbourne-au": {
+      "name": "Melbourne",
+      "region": "Australia",
+      "yearLabel": "2025 • Tour",
+      "highlights": ["Underground scene crossover", "Vinyl listening night"],
+      "attendance": null,
+      "merchSold": null,
+      "imageBase": "assets/img/cities/melbourne/melbourne-480.jpg",
+      "aura": { "a": "rgba(120, 255, 210, 0.2)", "b": "rgba(120, 160, 255, 0.18)" },
+      "galleryCount": 12,
+      "gallery": []
+    },
+
+    "brisbane-au": {
+      "name": "Brisbane",
+      "region": "Australia",
+      "yearLabel": "2025 • Tour",
+      "highlights": ["Open-air stage", "Warm night energy"],
+      "attendance": null,
+      "merchSold": null,
+      "imageBase": "assets/img/cities/brisbane/brisbane-480.jpg",
+      "aura": { "a": "rgba(140, 255, 180, 0.18)", "b": "rgba(120, 200, 255, 0.18)" },
+      "galleryCount": 12,
+      "gallery": []
+    },
+
+    "sydney-au": {
+      "name": "Sydney",
+      "region": "Australia",
+      "yearLabel": "2025 • Tour",
+      "highlights": ["Harbor city set", "After-hours session"],
+      "attendance": null,
+      "merchSold": null,
+      "imageBase": "assets/img/cities/sydney/sydney-480.jpg",
+      "aura": { "a": "rgba(120, 180, 255, 0.2)", "b": "rgba(180, 120, 255, 0.16)" },
+      "galleryCount": 12,
+      "gallery": []
+    },
+
+    "bucharest-ro": {
+      "name": "Bucharest",
+      "region": "Romania",
+      "yearLabel": "2025 • Tour",
+      "highlights": ["Eastern Europe debut", "Industrial club night"],
+      "attendance": null,
+      "merchSold": null,
+      "imageBase": "assets/img/cities/romania/bucharest-480.jpg",
+      "aura": { "a": "rgba(180, 210, 255, 0.18)", "b": "rgba(120, 255, 240, 0.15)" },
+      "galleryCount": 12,
+      "gallery": []
+    },
+
+    "malta-mt": {
+      "name": "Malta",
+      "region": "Europe",
+      "yearLabel": "2025 • Tour",
+      "highlights": ["Island night set", "Open-sky stage"],
+      "attendance": null,
+      "merchSold": null,
+      "imageBase": "assets/img/cities/malta/malta-480.jpg",
+      "aura": { "a": "rgba(255, 210, 160, 0.2)", "b": "rgba(120, 200, 255, 0.16)" },
+      "galleryCount": 12,
+      "gallery": []
+    },
+
+    "lisbon-pt": {
+      "name": "Lisbon",
+      "region": "Portugal",
+      "yearLabel": "2025 • Tour",
+      "highlights": ["Atlantic coast energy", "Late sunset show"],
+      "attendance": null,
+      "merchSold": null,
+      "imageBase": "assets/img/cities/portugal/lisbon-480.jpg",
+      "aura": { "a": "rgba(255, 180, 120, 0.2)", "b": "rgba(255, 120, 180, 0.16)" },
+      "galleryCount": 12,
+      "gallery": []
+    },
+
+    "london-uk": {
+      "name": "London",
+      "region": "United Kingdom",
+      "yearLabel": "2025 • Tour",
+      "highlights": ["Warehouse residency tease", "Press coverage"],
+      "attendance": null,
+      "merchSold": null,
+      "imageBase": "assets/img/cities/london/london-480.jpg",
+      "aura": { "a": "rgba(180, 210, 255, 0.18)", "b": "rgba(120, 255, 240, 0.15)" },
+      "galleryCount": 12,
+      "gallery": []
+    },
+
+    "scotland-uk": {
+      "name": "Scotland",
+      "region": "United Kingdom",
+      "yearLabel": "2025 • Tour",
+      "highlights": ["Northern leg highlight", "Dark club energy"],
+      "attendance": null,
+      "merchSold": null,
+      "imageBase": "assets/img/cities/scotland/scotland-480.jpg",
+      "aura": { "a": "rgba(120, 160, 255, 0.2)", "b": "rgba(160, 120, 255, 0.18)" },
+      "galleryCount": 12,
+      "gallery": []
+    },
+
+    "birmingham-uk": {
+      "name": "Birmingham",
+      "region": "United Kingdom",
+      "yearLabel": "2025 • Tour",
+      "highlights": ["Midlands stop", "High-energy crowd"],
+      "attendance": null,
+      "merchSold": null,
+      "imageBase": "assets/img/cities/birmingham/birmingham-480.jpg",
+      "aura": { "a": "rgba(140, 200, 255, 0.18)", "b": "rgba(255, 160, 220, 0.16)" },
+      "galleryCount": 12,
+      "gallery": []
+    },
+
+    "auckland-nz": {
+      "name": "Auckland",
+      "region": "New Zealand",
+      "yearLabel": "2025 • Tour",
+      "highlights": ["Pacific leg opener", "Coastal night set"],
+      "attendance": null,
+      "merchSold": null,
+      "imageBase": "assets/img/cities/auckland/auckland-480.jpg",
+      "aura": { "a": "rgba(120, 255, 210, 0.18)", "b": "rgba(120, 180, 255, 0.16)" },
+      "galleryCount": 12,
+      "gallery": []
+    }
   },
-  {
-    "id": "pkr-2026-02-12",
-    "title": "SAMRAJYA Tour",
-    "city": "Pokhara, NP",
-    "venue": "Ozone Club",
-    "start": "2026-02-12T22:00:00+05:45",
-    "doorsText": "Doors 10:00 PM",
-    "ticketsUrl": "https://example.com"
-  }
-]
+  
+  "events": [
+    {
+      "id": "ktm-2026-02-05",
+      "title": "SAMRAJYA Tour",
+      "cityId": "kathmandu-np",
+      "city": "Kathmandu",
+      "region": "Nepal",
+      "venue": "Club Deja Vu",
+      "start": "2026-02-05T22:00:00+05:45",
+      "doorsText": "Doors 10:00 PM",
+      "ticketsUrl": "https://example.com"
+    },
+    {
+      "id": "pkr-2026-02-12",
+      "title": "SAMRAJYA Tour",
+      "cityId": "pokhara-np",
+      "city": "Pokhara",
+      "region": "Nepal",
+      "venue": "Ozone Club",
+      "start": "2026-02-12T22:00:00+05:45",
+      "doorsText": "Doors 10:00 PM",
+      "ticketsUrl": "https://example.com"
+    },
+    {
+      "id": "btw-2026-02-18",
+      "title": "SAMRAJYA Tour",
+      "cityId": "butwal-np",
+      "city": "Butwal",
+      "region": "Nepal",
+      "venue": "Arena Club",
+      "start": "2026-02-18T21:30:00+05:45",
+      "doorsText": "Doors 9:30 PM",
+      "ticketsUrl": "https://example.com"
+    },
+
+    {
+      "id": "tor-2026-03-05",
+      "title": "SAMRAJYA Tour",
+      "cityId": "toronto-ca",
+      "city": "Toronto",
+      "region": "Canada",
+      "venue": "The Axis Club",
+      "start": "2026-03-05T20:00:00-05:00",
+      "doorsText": "Doors 8:00 PM",
+      "ticketsUrl": "https://example.com"
+    },
+
+    {
+      "id": "dxb-2026-03-20",
+      "title": "SAMRAJYA Tour",
+      "cityId": "dubai-ae",
+      "city": "Dubai",
+      "region": "UAE",
+      "venue": "Skyline Lounge",
+      "start": "2026-03-20T22:00:00+04:00",
+      "doorsText": "Doors 10:00 PM",
+      "ticketsUrl": "https://example.com"
+    },
+
+    {
+      "id": "mel-2026-04-05",
+      "title": "SAMRAJYA Tour",
+      "cityId": "melbourne-au",
+      "city": "Melbourne",
+      "region": "Australia",
+      "venue": "SubClub",
+      "start": "2026-04-05T21:00:00+11:00",
+      "doorsText": "Doors 9:00 PM",
+      "ticketsUrl": "https://example.com"
+    },
+    {
+      "id": "bne-2026-04-10",
+      "title": "SAMRAJYA Tour",
+      "cityId": "brisbane-au",
+      "city": "Brisbane",
+      "region": "Australia",
+      "venue": "The Warehouse",
+      "start": "2026-04-10T20:30:00+10:00",
+      "doorsText": "Doors 8:30 PM",
+      "ticketsUrl": "https://example.com"
+    },
+    {
+      "id": "syd-2026-04-15",
+      "title": "SAMRAJYA Tour",
+      "cityId": "sydney-au",
+      "city": "Sydney",
+      "region": "Australia",
+      "venue": "Harbor Room",
+      "start": "2026-04-15T21:00:00+10:00",
+      "doorsText": "Doors 9:00 PM",
+      "ticketsUrl": "https://example.com"
+    },
+
+    {
+      "id": "buc-2026-05-02",
+      "title": "SAMRAJYA Tour",
+      "cityId": "bucharest-ro",
+      "city": "Bucharest",
+      "region": "Romania",
+      "venue": "Control Club",
+      "start": "2026-05-02T22:00:00+02:00",
+      "doorsText": "Doors 10:00 PM",
+      "ticketsUrl": "https://example.com"
+    },
+    {
+      "id": "mlt-2026-05-08",
+      "title": "SAMRAJYA Tour",
+      "cityId": "malta-mt",
+      "city": "Malta",
+      "region": "Europe",
+      "venue": "Open Sky Venue",
+      "start": "2026-05-08T21:00:00+02:00",
+      "doorsText": "Doors 9:00 PM",
+      "ticketsUrl": "https://example.com"
+    },
+    {
+      "id": "lis-2026-05-14",
+      "title": "SAMRAJYA Tour",
+      "cityId": "lisbon-pt",
+      "city": "Lisbon",
+      "region": "Portugal",
+      "venue": "LX Factory",
+      "start": "2026-05-14T21:00:00+01:00",
+      "doorsText": "Doors 9:00 PM",
+      "ticketsUrl": "https://example.com"
+    },
+
+    {
+      "id": "lon-2026-06-01",
+      "title": "SAMRAJYA Tour",
+      "cityId": "london-uk",
+      "city": "London",
+      "region": "United Kingdom",
+      "venue": "Printworks Warehouse",
+      "start": "2026-06-01T21:00:00+01:00",
+      "doorsText": "Doors 9:00 PM",
+      "ticketsUrl": "https://example.com"
+    },
+    {
+      "id": "sco-2026-06-06",
+      "title": "SAMRAJYA Tour",
+      "cityId": "scotland-uk",
+      "city": "Scotland",
+      "region": "United Kingdom",
+      "venue": "Underground Club",
+      "start": "2026-06-06T21:00:00+01:00",
+      "doorsText": "Doors 9:00 PM",
+      "ticketsUrl": "https://example.com"
+    },
+    {
+      "id": "brm-2026-06-10",
+      "title": "SAMRAJYA Tour",
+      "cityId": "birmingham-uk",
+      "city": "Birmingham",
+      "region": "United Kingdom",
+      "venue": "Lab11",
+      "start": "2026-06-10T21:00:00+01:00",
+      "doorsText": "Doors 9:00 PM",
+      "ticketsUrl": "https://example.com"
+    },
+
+    {
+      "id": "auk-2026-06-25",
+      "title": "SAMRAJYA Tour",
+      "cityId": "auckland-nz",
+      "city": "Auckland",
+      "region": "New Zealand",
+      "venue": "Neck of the Woods",
+      "start": "2026-06-25T20:30:00+12:00",
+      "doorsText": "Doors 8:30 PM",
+      "ticketsUrl": "https://example.com"
+    }
+  ]
+
+
+}
