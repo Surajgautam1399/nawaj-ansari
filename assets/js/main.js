@@ -627,7 +627,7 @@ function initCitiesArchiveV2(citiesArchiveData = []) {
   const drawer = document.getElementById("city-gallery-drawer");
 
   const clampIndex = (value) => Math.min(Math.max(value, 0), citiesArchiveData.length - 1);
-  const visibleRange = 3;
+  const STACK_VISIBLE_COUNT = 5;
   let activeIndex = 0;
   let previewIndex = null;
   let focusMode = false;
@@ -635,6 +635,7 @@ function initCitiesArchiveV2(citiesArchiveData = []) {
   let isDeckHover = false;
   let wheelDelta = 0;
   let wheelFrame = null;
+  let panelUpdateTimer = null;
 
   const buildGradient = (city) => {
     const auraA = city?.aura?.a || defaultAura.a;
@@ -683,18 +684,35 @@ function initCitiesArchiveV2(citiesArchiveData = []) {
     if (!deckCounter) return;
     deckCounter.textContent = `${activeIndex + 1} / ${citiesArchiveData.length}`;
     deckCounter.classList.add("is-visible");
+    if (scrubUp) scrubUp.disabled = activeIndex <= 0;
+    if (scrubDown) scrubDown.disabled = activeIndex >= citiesArchiveData.length - 1;
+  };
+
+  const formatStat = (value) => {
+    if (value === null || value === undefined || Number.isNaN(Number(value))) return "N/A";
+    return formatCityNumber(value);
+  };
+
+  const animatePanelSwap = () => {
+    if (!panel) return;
+    panel.classList.add("is-updating");
+    if (panelUpdateTimer) window.clearTimeout(panelUpdateTimer);
+    panelUpdateTimer = window.setTimeout(() => {
+      panel.classList.remove("is-updating");
+      panelUpdateTimer = null;
+    }, 170);
   };
 
   const updatePanel = (city) => {
     if (!city) return;
     if (panelTitle) panelTitle.textContent = city.name;
     if (panelMeta) panelMeta.textContent = `${city.region} • ${city.yearLabel}`;
-    if (panelAttendance) panelAttendance.textContent = formatCityNumber(city.attendance);
-    if (panelShows) panelShows.textContent = formatCityNumber(city.shows);
+    if (panelAttendance) panelAttendance.textContent = formatStat(city.attendance);
+    if (panelShows) panelShows.textContent = formatStat(city.shows);
 
     const hasMerch = city.merchSold !== null && city.merchSold !== undefined;
     if (panelMerchRow) panelMerchRow.hidden = !hasMerch;
-    if (panelMerch) panelMerch.textContent = hasMerch ? formatCityNumber(city.merchSold) : "—";
+    if (panelMerch) panelMerch.textContent = hasMerch ? formatCityNumber(city.merchSold) : "N/A";
 
     if (panelHighlights) {
       panelHighlights.replaceChildren();
@@ -719,8 +737,12 @@ function initCitiesArchiveV2(citiesArchiveData = []) {
   const renderDeckWindow = () => {
     deck.replaceChildren();
     const fragment = document.createDocumentFragment();
-    const start = clampIndex(activeIndex - visibleRange);
-    const end = clampIndex(activeIndex + visibleRange);
+    const half = Math.floor(STACK_VISIBLE_COUNT / 2);
+    let start = Math.max(0, activeIndex - half);
+    let end = Math.min(citiesArchiveData.length - 1, start + STACK_VISIBLE_COUNT - 1);
+    if (end - start + 1 < STACK_VISIBLE_COUNT) {
+      start = Math.max(0, end - STACK_VISIBLE_COUNT + 1);
+    }
 
     for (let i = start; i <= end; i += 1) {
       const city = citiesArchiveData[i];
@@ -732,7 +754,9 @@ function initCitiesArchiveV2(citiesArchiveData = []) {
       const delta = i - activeIndex;
       card.style.setProperty("--delta", String(delta));
       card.style.setProperty("--abs-delta", String(Math.abs(delta)));
+      card.style.setProperty("--city-depth", String(Math.abs(delta)));
       card.style.zIndex = String(100 - Math.abs(delta));
+      card.classList.toggle("is-muted", Math.abs(delta) > 0);
 
       const nameEl = card.querySelector(".city-card-name");
       const statusEl = card.querySelector(".city-card-status");
@@ -754,7 +778,7 @@ function initCitiesArchiveV2(citiesArchiveData = []) {
       }
       if (regionEl) regionEl.textContent = city.region;
       if (yearEl) yearEl.textContent = city.yearLabel;
-      if (attendanceEl) attendanceEl.textContent = `Attendance ${formatCityNumber(city.attendance)}`;
+      if (attendanceEl) attendanceEl.textContent = `Attendance ${formatStat(city.attendance)}`;
 
       const initial = (city.name || "C").trim().charAt(0).toUpperCase();
       if (emblemEl) emblemEl.textContent = initial;
@@ -798,6 +822,7 @@ function initCitiesArchiveV2(citiesArchiveData = []) {
     if (clamped === activeIndex) return;
     activeIndex = clamped;
     previewIndex = null;
+    animatePanelSwap();
     renderDeckWindow();
     updatePanel(getActiveCity());
     updateBackground(getActiveCity());
@@ -805,8 +830,11 @@ function initCitiesArchiveV2(citiesArchiveData = []) {
   };
 
   const setPreviewIndex = (nextIndex) => {
-    previewIndex = nextIndex === null ? null : clampIndex(nextIndex);
+    const resolvedIndex = nextIndex === null ? null : clampIndex(nextIndex);
+    if (resolvedIndex === previewIndex) return;
+    previewIndex = resolvedIndex;
     const city = getPreviewCity();
+    animatePanelSwap();
     updatePanel(city);
     updateBackground(city);
   };
@@ -929,11 +957,24 @@ function initCitiesArchiveV2(citiesArchiveData = []) {
   if (scrubDown) scrubDown.addEventListener("click", () => setActiveIndex(activeIndex + 1));
   if (scrubber) {
     scrubber.addEventListener("keydown", (event) => {
-      if (event.key === "ArrowUp") {
+      if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
         event.preventDefault();
         setActiveIndex(activeIndex - 1);
       }
-      if (event.key === "ArrowDown") {
+      if (event.key === "ArrowDown" || event.key === "ArrowRight") {
+        event.preventDefault();
+        setActiveIndex(activeIndex + 1);
+      }
+    });
+  }
+
+  if (deck) {
+    deck.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        setActiveIndex(activeIndex - 1);
+      }
+      if (event.key === "ArrowRight") {
         event.preventDefault();
         setActiveIndex(activeIndex + 1);
       }
@@ -1385,6 +1426,277 @@ function initParticlesBackground() {
   tsParticles.load("particles-bg", baseConfig);
 }
 
+function initSpotifyReactiveBackground() {
+  const spotifySection = document.querySelector("#spotify.spotify-section");
+  if (!spotifySection) return;
+
+  const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+  const isTouchLike = window.matchMedia?.("(pointer: coarse)")?.matches;
+  const supportsFinePointer = window.matchMedia?.("(hover: hover) and (pointer: fine)")?.matches;
+
+  if (prefersReducedMotion || isTouchLike || !supportsFinePointer) {
+    spotifySection.classList.add("spotify-reactive-disabled");
+    return;
+  }
+
+  let currentX = 0.5;
+  let currentY = 0.46;
+  let targetX = 0.5;
+  let targetY = 0.46;
+  let rafId = null;
+  let isInside = false;
+
+  const setVars = () => {
+    const parallaxX = (currentX - 0.5) * 2;
+    const parallaxY = (currentY - 0.5) * 2;
+
+    spotifySection.style.setProperty("--spotify-cursor-x", `${(currentX * 100).toFixed(2)}%`);
+    spotifySection.style.setProperty("--spotify-cursor-y", `${(currentY * 100).toFixed(2)}%`);
+    spotifySection.style.setProperty("--spotify-parallax-x", parallaxX.toFixed(4));
+    spotifySection.style.setProperty("--spotify-parallax-y", parallaxY.toFixed(4));
+  };
+
+  const animate = () => {
+    currentX += (targetX - currentX) * 0.12;
+    currentY += (targetY - currentY) * 0.12;
+    setVars();
+
+    const settled =
+      Math.abs(targetX - currentX) < 0.0015 &&
+      Math.abs(targetY - currentY) < 0.0015;
+
+    if (!isInside && settled) {
+      rafId = null;
+      return;
+    }
+
+    rafId = window.requestAnimationFrame(animate);
+  };
+
+  const ensureLoop = () => {
+    if (rafId !== null) return;
+    rafId = window.requestAnimationFrame(animate);
+  };
+
+  const onPointerMove = (event) => {
+    const rect = spotifySection.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+
+    targetX = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
+    targetY = Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height));
+    isInside = true;
+    ensureLoop();
+  };
+
+  const onPointerLeave = () => {
+    isInside = false;
+    targetX = 0.5;
+    targetY = 0.46;
+    ensureLoop();
+  };
+
+  spotifySection.addEventListener("pointermove", onPointerMove, { passive: true });
+  spotifySection.addEventListener("pointerenter", onPointerMove, { passive: true });
+  spotifySection.addEventListener("pointerleave", onPointerLeave, { passive: true });
+  setVars();
+}
+
+function initAlbumsOrbitMobile() {
+  const stage = document.querySelector(".albums-stage");
+  const ring = stage?.querySelector(".albums-ring");
+  if (!stage || !ring) return;
+
+  const cards = Array.from(ring.querySelectorAll(".album-card"));
+  if (!cards.length) return;
+
+  const swipeHint = document.getElementById("albums-swipe-hint");
+  const hintKey = "albumsOrbitSwipeHintDismissed";
+  const mobileMQ = window.matchMedia("(max-width: 768px)");
+  const reducedMotionMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  const getVisibleDepth = () => {
+    const raw = window.getComputedStyle(stage).getPropertyValue("--albums-mobile-visible-depth");
+    const parsed = Number.parseInt(raw, 10);
+    if (!Number.isFinite(parsed)) return 2;
+    return Math.max(1, parsed);
+  };
+  let activeIndex = 0;
+  let enabled = false;
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragLastX = 0;
+  let dragDeltaX = 0;
+  let dragStartTime = 0;
+  let suppressClick = false;
+
+  const normalizeIndex = (value) => {
+    const len = cards.length;
+    return ((value % len) + len) % len;
+  };
+
+  const shortestDelta = (index, center) => {
+    let delta = index - center;
+    const half = cards.length / 2;
+    if (delta > half) delta -= cards.length;
+    if (delta < -half) delta += cards.length;
+    return delta;
+  };
+
+  const hideHint = () => {
+    if (!swipeHint || swipeHint.classList.contains("is-hidden")) return;
+    swipeHint.classList.add("is-hidden");
+    try {
+      localStorage.setItem(hintKey, "1");
+    } catch (err) {
+      console.warn("Unable to persist albums hint preference.", err);
+    }
+  };
+
+  const updateHintVisibility = () => {
+    if (!swipeHint) return;
+    let dismissed = false;
+    try {
+      dismissed = localStorage.getItem(hintKey) === "1";
+    } catch (err) {
+      dismissed = false;
+    }
+    swipeHint.classList.toggle("is-hidden", dismissed || !enabled);
+  };
+
+  const render = (previewOffset = 0) => {
+    const visibleDepth = getVisibleDepth();
+    cards.forEach((card, index) => {
+      const delta = shortestDelta(index, activeIndex) + previewOffset;
+      const absDelta = Math.abs(delta);
+      const hidden = absDelta > visibleDepth;
+      card.style.setProperty("--mobile-delta", delta.toFixed(3));
+      card.style.setProperty("--mobile-abs", absDelta.toFixed(3));
+      card.dataset.mobileHidden = hidden ? "true" : "false";
+      card.classList.toggle("is-mobile-active", Math.round(delta) === 0 && Math.abs(previewOffset) < 0.3);
+      card.tabIndex = Math.round(delta) === 0 ? 0 : -1;
+      card.style.zIndex = String(80 - Math.round(absDelta * 10));
+    });
+  };
+
+  const setActive = (nextIndex) => {
+    activeIndex = normalizeIndex(nextIndex);
+    render();
+  };
+
+  const onPointerDown = (event) => {
+    if (!enabled || event.pointerType === "mouse") return;
+    isDragging = true;
+    suppressClick = false;
+    dragStartX = event.clientX;
+    dragLastX = event.clientX;
+    dragDeltaX = 0;
+    dragStartTime = performance.now();
+    stage.classList.add("is-dragging");
+  };
+
+  const onPointerMove = (event) => {
+    if (!enabled || !isDragging) return;
+    dragLastX = event.clientX;
+    dragDeltaX = dragLastX - dragStartX;
+    if (Math.abs(dragDeltaX) > 6) suppressClick = true;
+    const preview = Math.max(-1.2, Math.min(1.2, dragDeltaX / Math.max(200, stage.clientWidth * 0.7)));
+    render(-preview);
+  };
+
+  const onPointerUp = () => {
+    if (!enabled || !isDragging) return;
+    isDragging = false;
+    stage.classList.remove("is-dragging");
+
+    const elapsed = Math.max(1, performance.now() - dragStartTime);
+    const velocity = dragDeltaX / elapsed;
+    const threshold = Math.max(34, stage.clientWidth * 0.08);
+    let direction = 0;
+    if (Math.abs(dragDeltaX) > threshold || Math.abs(velocity) > 0.34) {
+      direction = dragDeltaX < 0 ? 1 : -1;
+    }
+
+    if (direction !== 0) {
+      setActive(activeIndex + direction);
+      hideHint();
+    } else {
+      render();
+    }
+  };
+
+  const onCardClick = (event) => {
+    if (!enabled) return;
+    const card = event.currentTarget;
+    const index = Number(card.dataset.mobileIndex);
+    if (Number.isNaN(index)) return;
+
+    if (suppressClick) {
+      event.preventDefault();
+      suppressClick = false;
+      return;
+    }
+
+    if (index !== activeIndex) {
+      event.preventDefault();
+      setActive(index);
+      hideHint();
+    } else {
+      hideHint();
+    }
+  };
+
+  const enable = () => {
+    enabled = true;
+    stage.classList.add("albums-mobile-orbit");
+    ring.style.animation = "none";
+    cards.forEach((card, index) => {
+      card.dataset.mobileIndex = String(index);
+    });
+    render();
+    updateHintVisibility();
+  };
+
+  const disable = () => {
+    enabled = false;
+    isDragging = false;
+    stage.classList.remove("albums-mobile-orbit", "is-dragging");
+    ring.style.animation = "";
+    cards.forEach((card) => {
+      card.style.removeProperty("--mobile-delta");
+      card.style.removeProperty("--mobile-abs");
+      card.style.removeProperty("z-index");
+      delete card.dataset.mobileHidden;
+      card.classList.remove("is-mobile-active");
+      card.tabIndex = 0;
+    });
+    updateHintVisibility();
+  };
+
+  const evaluateMode = () => {
+    if (mobileMQ.matches) {
+      if (!enabled) enable();
+    } else if (enabled) {
+      disable();
+    }
+  };
+
+  cards.forEach((card) => {
+    card.addEventListener("click", onCardClick);
+  });
+
+  stage.addEventListener("pointerdown", onPointerDown, { passive: true });
+  stage.addEventListener("pointermove", onPointerMove, { passive: true });
+  stage.addEventListener("pointerup", onPointerUp, { passive: true });
+  stage.addEventListener("pointercancel", onPointerUp, { passive: true });
+  stage.addEventListener("pointerleave", onPointerUp, { passive: true });
+
+  window.addEventListener("resize", evaluateMode);
+  mobileMQ.addEventListener?.("change", evaluateMode);
+  reducedMotionMQ.addEventListener?.("change", evaluateMode);
+
+  evaluateMode();
+}
+
 function updateCountdown() {
   const now = new Date();
   const diff = countdownTarget ? countdownTarget - now : 0;
@@ -1431,31 +1743,87 @@ document.addEventListener("DOMContentLoaded", async () => {
   const body = document.body;
 
   if (nav && navToggle && navList) {
+    const openNav = () => {
+      nav.classList.add("nav-open");
+      body.classList.add("menu-open");
+      navToggle.setAttribute("aria-expanded", "true");
+    };
+
+    const closeNav = () => {
+      nav.classList.remove("nav-open");
+      body.classList.remove("menu-open");
+      navToggle.setAttribute("aria-expanded", "false");
+    };
+
     navToggle.addEventListener("click", () => {
-      const isOpen = nav.classList.toggle("nav-open");
-      navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      const isOpen = nav.classList.contains("nav-open");
+      if (isOpen) {
+        closeNav();
+        return;
+      }
+      openNav();
+    });
+
+    nav.addEventListener("click", (event) => {
+      if (event.target === nav) {
+        closeNav();
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 768) {
+        closeNav();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      if (!nav.classList.contains("nav-open")) return;
+      closeNav();
+      navToggle.focus();
     });
 
     navList.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => {
-        nav.classList.remove("nav-open");
-        navToggle.setAttribute("aria-expanded", "false");
+        closeNav();
       });
     });
   }
 
-  if (gModeToggle) {
-    const saved = localStorage.getItem("gMode") === "on";
-    if (saved) {
-      body.classList.add("g-mode");
-      gModeToggle.setAttribute("aria-pressed", "true");
+  if (navToggle) {
+    navToggle.setAttribute("aria-controls", "primary-nav");
+    if (!navToggle.hasAttribute("aria-expanded")) {
+      navToggle.setAttribute("aria-expanded", "false");
     }
+  }
+
+  document.querySelectorAll("[data-scroll]").forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      const target = trigger.getAttribute("data-scroll");
+      if (!target) return;
+      const el = document.querySelector(target);
+      if (!el) return;
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+
+  if (gModeToggle) {
+    const applyTheme = (isGMode) => {
+      body.classList.toggle("g-mode", isGMode);
+      document.documentElement.setAttribute("data-theme", isGMode ? "g-red" : "default");
+      gModeToggle.setAttribute("aria-pressed", isGMode ? "true" : "false");
+    };
+
+    const saved = localStorage.getItem("theme");
+    const isSavedGMode = saved ? saved === "g-red" : localStorage.getItem("gMode") === "on";
+    applyTheme(isSavedGMode);
+
     gModeToggle.addEventListener("click", () => {
-      const isOn = body.classList.toggle("g-mode");
-      gModeToggle.setAttribute("aria-pressed", isOn ? "true" : "false");
+      const isOn = !body.classList.contains("g-mode");
+      applyTheme(isOn);
+      localStorage.setItem("theme", isOn ? "g-red" : "default");
       localStorage.setItem("gMode", isOn ? "on" : "off");
       initGModeHeroVideo();
-      setTimeout(() => window.location.reload(), 550);
     });
     initGModeHeroVideo();
   }
@@ -1486,6 +1854,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   buildHeroDroplets();
+  initAlbumsOrbitMobile();
   if (heroDroplets) {
     let resizeTimer;
     window.addEventListener("resize", () => {
@@ -1649,6 +2018,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   initGModeHeroVideo();
 
   initParticlesBackground();
+  initSpotifyReactiveBackground();
 
   // Smoke test to verify canvas creation without breaking UI
   setTimeout(() => {

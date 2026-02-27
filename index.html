@@ -75,23 +75,28 @@
         </p>
 
         <div class="hero-cta-row">
-          <button class="btn btn-primary" onclick="document.getElementById('tour').scrollIntoView({behavior:'smooth'})">
+          <button class="btn btn-primary" type="button" data-scroll="#tour">
             Next show – tickets
           </button>
-          <!-- <button class="btn" onclick="document.getElementById('merch').scrollIntoView({behavior:'smooth'})">Shop merch</button> -->
+          <!-- <button class="btn" type="button" data-scroll="#merch">Shop merch</button> -->
         </div>
       </div>
 
-      <div class="hero-ribbon">
-        <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
-        <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
-        <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
-        <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
-        <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
-        <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
-         <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
-          <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
-           <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
+      <div class="hero-ribbon-overlay" aria-hidden="true">
+        <div class="hero-ribbon">
+          <div class="hero-ribbon-track">
+            <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
+            <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
+            <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
+            <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
+          </div>
+          <div class="hero-ribbon-track" aria-hidden="true">
+            <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
+            <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
+            <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
+            <span>SAMRAJYA TOUR • LIMITED DROPS • REAL GOAT • 100% G • </span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -162,24 +167,20 @@
               <img src="./assets/img/ALBUM_06.png" alt="Placeholder album cover">
             </a>
           </div>
+          <p class="albums-swipe-hint" id="albums-swipe-hint" aria-hidden="true">Swipe</p>
         </div>
       </div>
     </section>
 
     <!-- SPOTIFY -->
     <section id="spotify" class="spotify-section">
-      <div class="spotify-layer-bg">
-        <div class="spotify-card spotify-card--bg">
-          <iframe class="spotify-embed"
-            src="https://open.spotify.com/embed/artist/3dSiKDhXz6jbBNxFGSWO1y?utm_source=generator"
-            width="100%" height="352" frameborder="0"
-            allowfullscreen=""
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"
-            title="Listen on Spotify (background copy)"></iframe>
-        </div>
+      <div class="spotify-bg-mesh" aria-hidden="true">
+        <span class="spotify-mesh-orb spotify-mesh-orb--green"></span>
+        <span class="spotify-mesh-orb spotify-mesh-orb--steel"></span>
+        <span class="spotify-mesh-orb spotify-mesh-orb--charcoal"></span>
       </div>
-
+      <div class="spotify-light-hotspot" aria-hidden="true"></div>
+      <div class="spotify-glass-stage" aria-hidden="true"></div>
       <div class="spotify-overlay" aria-hidden="true"></div>
 
       <div class="spotify-content">
@@ -188,14 +189,22 @@
           <h2 class="section-heading">NAWAJ ANSARI on Spotify</h2>
           <p class="spotify-subtext">Stream the latest drops</p>
         </div>
-        <div class="spotify-card">
-          <iframe class="spotify-embed"
-            src="https://open.spotify.com/embed/artist/3dSiKDhXz6jbBNxFGSWO1y?utm_source=generator"
-            width="100%" height="352" frameborder="0"
-            allowfullscreen=""
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"
-            title="Listen on Spotify"></iframe>
+        <div class="spotify-stack-shell">
+          <div class="spotify-stack" aria-label="Spotify player">
+            <div class="spotify-stack-card spotify-stack-card--back-2" aria-hidden="true"></div>
+            <div class="spotify-stack-card spotify-stack-card--back-1" aria-hidden="true"></div>
+            <div class="spotify-card spotify-stack-card spotify-stack-card--front">
+              <div class="spotify-embed-frame">
+                <iframe class="spotify-embed"
+                  src="https://open.spotify.com/embed/artist/3dSiKDhXz6jbBNxFGSWO1y?utm_source=generator"
+                  width="100%" height="352" frameborder="0"
+                  allowfullscreen=""
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy"
+                  title="Listen on Spotify"></iframe>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -255,14 +264,13 @@
 
         <div class="cities-archive-grid">
           <div class="cities-deck-wrap">
-            <div class="cities-deck" id="cities-deck" role="listbox" aria-label="Tour city archive"></div>
-            <div class="cities-scrubber" id="cities-scrubber" role="group" aria-label="Tour cities scrubber" tabindex="0">
-              <button class="cities-scrub-btn" type="button" id="cities-scrub-up" aria-label="Previous city">▲</button>
-              <div class="cities-scrub-track" aria-hidden="true"></div>
-              <button class="cities-scrub-btn" type="button" id="cities-scrub-down" aria-label="Next city">▼</button>
+            <div class="cities-deck" id="cities-deck" role="listbox" aria-label="Tour city archive" tabindex="0"></div>
+            <div class="cities-scrubber" id="cities-scrubber" role="group" aria-label="Tour cities controls" tabindex="0">
+              <button class="cities-scrub-btn" type="button" id="cities-scrub-up" aria-label="Previous city">Previous</button>
+              <div class="cities-deck-counter" id="cities-deck-counter" aria-live="polite">1 / 1</div>
+              <button class="cities-scrub-btn" type="button" id="cities-scrub-down" aria-label="Next city">Next</button>
             </div>
-            <div class="cities-deck-counter" id="cities-deck-counter" aria-hidden="true">1 / 1</div>
-            <p class="cities-deck-hint">Tap a city to bring the file forward.</p>
+            <p class="cities-deck-hint">Use arrow keys or tap a city to bring it forward.</p>
           </div>
 
           <div class="city-mini-panel" id="city-mini-panel" aria-live="polite">
