@@ -1,0 +1,689 @@
+/* ================================================================
+   EFFECTS.CSS — Glass 3D Visual Enhancement Layer
+   Additive on top of style.css — no overrides to base layout
+   ================================================================ */
+
+/* ----- TOKEN UPGRADES ------------------------------------------ */
+:root {
+  --glass-bg:        rgba(255, 255, 255, 0.035);
+  --glass-bg-strong: rgba(255, 255, 255, 0.065);
+  --glass-border:    rgba(255, 255, 255, 0.10);
+  --glass-top:       rgba(255, 255, 255, 0.20);
+  --glass-blur:      22px;
+  --glass-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.45),
+    0 1px 0   rgba(255, 255, 255, 0.08) inset,
+    0 -1px 0  rgba(0, 0, 0, 0.25) inset;
+
+  --neon:       0 0 22px rgba(var(--accent-rgb), 0.42),
+                0 0 60px rgba(var(--accent-rgb), 0.16);
+  --neon-soft:  0 0 12px rgba(var(--accent-rgb), 0.28);
+
+  --orb-a: rgba(90, 160, 255, 0.13);
+  --orb-b: rgba(180, 90,  255, 0.10);
+  --orb-c: rgba(var(--accent-rgb), 0.08);
+
+  --tilt-perspective: 860px;
+  --tilt-max: 16deg;
+}
+
+/* ================================================================
+   CURSOR GLOW (desktop only)
+   ================================================================ */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 560px;
+  height: 560px;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(var(--accent-rgb), 0.055) 0%,
+    transparent 62%);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: screen;
+  will-change: transform;
+  transition: opacity 0.4s ease;
+  transform: translate(-280px, -280px);
+}
+@media (hover: none) { .cursor-glow { display: none; } }
+@media (prefers-reduced-motion: reduce) { .cursor-glow { display: none; } }
+
+/* ================================================================
+   AMBIENT FLOATING ORBS
+   ================================================================ */
+.ambient-orbs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  will-change: transform;
+}
+.ambient-orb--1 {
+  width: 520px; height: 520px;
+  background: radial-gradient(circle, var(--orb-a), transparent 70%);
+  top: -12%; left: -8%;
+  animation: orb-drift 26s ease-in-out infinite;
+}
+.ambient-orb--2 {
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, var(--orb-b), transparent 70%);
+  top: 28%; right: -10%;
+  animation: orb-drift 34s ease-in-out infinite reverse;
+  animation-delay: -10s;
+}
+.ambient-orb--3 {
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, var(--orb-c), transparent 70%);
+  bottom: -8%; left: 32%;
+  animation: orb-drift 30s ease-in-out infinite;
+  animation-delay: -18s;
+}
+@keyframes orb-drift {
+  0%   { transform: translate(0px, 0px)   scale(1);    }
+  25%  { transform: translate(28px, -22px) scale(1.04); }
+  50%  { transform: translate(14px, 38px) scale(0.96); }
+  75%  { transform: translate(-24px, 12px) scale(1.02); }
+  100% { transform: translate(0px, 0px)   scale(1);    }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ambient-orb { animation: none; }
+}
+
+/* ================================================================
+   ENHANCED HEADER — deep glass
+   ================================================================ */
+header {
+  background: rgba(4, 4, 6, 0.52) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.32) !important;
+}
+
+/* ================================================================
+   GLASS PANEL — reusable base class
+   ================================================================ */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  border: 1px solid var(--glass-border);
+  border-top-color: var(--glass-top);
+  box-shadow: var(--glass-shadow);
+  position: relative;
+  overflow: hidden;
+}
+.glass-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.07) 0%,
+    transparent 48%,
+    rgba(255, 255, 255, 0.02) 100%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+/* Top highlight line */
+.glass-panel::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 12%; right: 12%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent);
+  pointer-events: none;
+}
+
+/* ================================================================
+   NOISE TEXTURE — adds depth to flat glass surfaces
+   ================================================================ */
+.noise-texture::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0.028;
+  pointer-events: none;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+}
+
+/* ================================================================
+   3D TILT CARD
+   ================================================================ */
+.tilt-3d {
+  will-change: transform;
+}
+
+/* Holographic shimmer layer */
+.tilt-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 12;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(circle at 50% 50%,
+    rgba(255, 255, 255, 0.20) 0%,
+    transparent 60%);
+  mix-blend-mode: screen;
+}
+/* Rainbow foil layer */
+.tilt-foil {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 11;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: linear-gradient(115deg,
+    transparent 15%,
+    rgba(255, 210, 90,  0.10) 28%,
+    rgba(90,  255, 190, 0.12) 44%,
+    rgba(90,  170, 255, 0.10) 60%,
+    rgba(210, 90,  255, 0.10) 76%,
+    transparent 88%);
+  mix-blend-mode: screen;
+}
+
+/* ================================================================
+   ALBUM CARDS — holographic mouse shimmer (CSS-var based)
+   keeps existing 3D ring transform intact
+   ================================================================ */
+.album-card {
+  --mx: 0.5;
+  --my: 0.5;
+  position: relative;
+}
+.album-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: radial-gradient(
+    circle at calc(var(--mx) * 100%) calc(var(--my) * 100%),
+    rgba(255, 255, 255, 0.22) 0%,
+    transparent 55%);
+  mix-blend-mode: screen;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 8;
+  transition: opacity 0.3s ease;
+}
+.album-card:hover::after {
+  opacity: 1;
+}
+/* Foil layer using CSS vars */
+.album-card-foil {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  pointer-events: none;
+  z-index: 7;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: linear-gradient(
+    calc(110deg + var(--mx, 0.5) * 30deg),
+    transparent 15%,
+    rgba(255, 210, 90,  0.12) 30%,
+    rgba(90,  255, 190, 0.14) 46%,
+    rgba(90,  170, 255, 0.12) 62%,
+    rgba(210, 90,  255, 0.12) 78%,
+    transparent 90%);
+  mix-blend-mode: screen;
+}
+.album-card:hover .album-card-foil { opacity: 1; }
+
+.album-card img {
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.72),
+    0 0 0 1px rgba(255, 255, 255, 0.07),
+    0 2px 0 rgba(255, 255, 255, 0.13) inset !important;
+  transition: transform 0.38s ease, box-shadow 0.38s ease !important;
+}
+.album-card:hover img {
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.78),
+    0 0 0 1px rgba(255, 255, 255, 0.15),
+    0 2px 0 rgba(255, 255, 255, 0.22) inset,
+    0 0 36px rgba(var(--accent-rgb), 0.18) !important;
+}
+
+/* ================================================================
+   COUNTDOWN CARD — deep glass + breathing glow
+   ================================================================ */
+.countdown-card {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(28px) saturate(170%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(170%) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-top-color: var(--glass-top) !important;
+  box-shadow:
+    0 12px 50px rgba(0, 0, 0, 0.55),
+    0 1px 0 rgba(255, 255, 255, 0.10) inset !important;
+  position: relative;
+  overflow: hidden;
+}
+.countdown-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 8%; right: 8%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  pointer-events: none;
+}
+.countdown-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.015) 100%);
+  pointer-events: none;
+}
+
+.countdown-unit {
+  background: rgba(0, 0, 0, 0.32) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-top-color: rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+  position: relative;
+  overflow: hidden;
+}
+.countdown-unit::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 15%; right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.32), transparent);
+}
+.countdown-number {
+  background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.72) 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  animation: countdown-breathe 3s ease-in-out infinite alternate;
+}
+@keyframes countdown-breathe {
+  from { filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3)); }
+  to   { filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.75)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .countdown-number { animation: none; }
+}
+
+/* ================================================================
+   TOUR ITEMS — shimmer sweep + glass upgrade
+   ================================================================ */
+.tour-item {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(22px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(160%) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-top-color: var(--glass-top) !important;
+  overflow: hidden;
+}
+/* Shimmer sweep on hover */
+.tour-item::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -80%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255, 255, 255, 0.055),
+    transparent);
+  transition: left 0.55s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+.tour-item:hover::after { left: 140%; }
+
+/* ================================================================
+   SUBSCRIBE CARD — conic shimmer glass
+   ================================================================ */
+.subscribe-card {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(30px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(30px) saturate(180%) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-top-color: var(--glass-top) !important;
+  box-shadow:
+    0 20px 70px rgba(0, 0, 0, 0.55),
+    0 1px 0 rgba(255, 255, 255, 0.14) inset !important;
+  position: relative;
+  overflow: hidden;
+}
+.subscribe-card::before {
+  content: "";
+  position: absolute;
+  top: -60%; left: -60%;
+  width: 220%; height: 220%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    transparent 0deg,
+    rgba(255, 255, 255, 0.016) 60deg,
+    transparent 120deg,
+    rgba(255, 255, 255, 0.016) 180deg,
+    transparent 240deg,
+    rgba(255, 255, 255, 0.016) 300deg,
+    transparent 360deg);
+  animation: subscribe-conic 14s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+@keyframes subscribe-conic { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .subscribe-card::before { animation: none; }
+}
+/* Glass input fields */
+#subscribe-form input,
+#subscribe-form select,
+#subscribe-form textarea {
+  background: rgba(0, 0, 0, 0.28) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  color: var(--text) !important;
+  transition: border-color 0.22s ease, box-shadow 0.22s ease, background 0.22s ease !important;
+}
+#subscribe-form input:focus,
+#subscribe-form select:focus,
+#subscribe-form textarea:focus {
+  background: rgba(0, 0, 0, 0.42) !important;
+  border-color: rgba(255, 255, 255, 0.28) !important;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05),
+              0 0 22px rgba(var(--accent-rgb), 0.14) !important;
+  outline: none;
+}
+
+/* ================================================================
+   ABOUT QUOTE — glass card with big quote mark
+   ================================================================ */
+.about-quote {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(18px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-top-color: var(--glass-top) !important;
+  border-radius: 20px !important;
+  padding: 32px 30px !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35),
+              0 1px 0 rgba(255, 255, 255, 0.10) inset !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+.about-quote::before {
+  content: '\201C';
+  position: absolute;
+  top: -14px; left: 18px;
+  font-size: 8rem;
+  font-family: "Cormorant Garamond", serif;
+  color: rgba(255, 255, 255, 0.05);
+  line-height: 1;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+}
+
+/* ================================================================
+   SPOTIFY EMBED FRAME — glass
+   ================================================================ */
+.spotify-embed-frame {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-top-color: var(--glass-top) !important;
+  border-radius: 24px !important;
+  overflow: hidden !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.52) !important;
+}
+
+/* ================================================================
+   SOCIAL GLASS LINKS — upgraded
+   ================================================================ */
+.social-glass {
+  background: rgba(255, 255, 255, 0.04) !important;
+  backdrop-filter: blur(18px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  border-top-color: rgba(255, 255, 255, 0.22) !important;
+  box-shadow:
+    0 6px 24px rgba(0, 0, 0, 0.35),
+    0 1px 0 rgba(255, 255, 255, 0.12) inset !important;
+  transition:
+    transform 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.26s ease,
+    border-color 0.26s ease !important;
+}
+.social-glass:hover {
+  transform: translateY(-5px) scale(1.10) !important;
+  border-color: rgba(255, 255, 255, 0.28) !important;
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.45),
+    0 0 26px rgba(var(--accent-rgb), 0.18),
+    0 1px 0 rgba(255, 255, 255, 0.22) inset !important;
+}
+
+/* ================================================================
+   SECTION LABELS — glass pill
+   ================================================================ */
+.section-label {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  letter-spacing: 0.22em !important;
+}
+
+/* ================================================================
+   AURORA SECTION BACKGROUNDS
+   ================================================================ */
+.aurora-bg {
+  position: relative;
+  overflow: hidden;
+}
+.aurora-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 18% -8%,  rgba(90, 170, 255, 0.07), transparent),
+    radial-gradient(ellipse 60% 40% at 82% 108%, rgba(170, 90, 255, 0.06), transparent),
+    radial-gradient(ellipse 50% 60% at 50% 52%,  rgba(var(--accent-rgb), 0.03), transparent);
+  pointer-events: none;
+  z-index: 0;
+  animation: aurora-breathe 22s ease-in-out infinite alternate;
+}
+@keyframes aurora-breathe {
+  0%   { opacity: 0.55; transform: scale(1)    translateY(0px); }
+  50%  { opacity: 1.00; transform: scale(1.02) translateY(-12px); }
+  100% { opacity: 0.65; transform: scale(1)    translateY(0px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aurora-bg::before { animation: none; }
+}
+
+/* ================================================================
+   CITY CARD 3D
+   ================================================================ */
+.city-card {
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+.city-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at calc(var(--cx, 0.5) * 100%) calc(var(--cy, 0.5) * 100%),
+    rgba(255, 255, 255, 0.16) 0%,
+    transparent 55%);
+  mix-blend-mode: screen;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 8;
+  transition: opacity 0.3s ease;
+}
+.city-card:hover::after,
+.city-card.is-active::after { opacity: 1; }
+
+/* Prismatic active border */
+.city-card.is-active {
+  background-image:
+    linear-gradient(var(--bg-elevated, #0d0f13), var(--bg-elevated, #0d0f13)),
+    linear-gradient(135deg,
+      rgba(90,  180, 255, 0.55),
+      rgba(210, 90,  255, 0.45),
+      rgba(90,  255, 180, 0.35)) !important;
+  background-origin: border-box !important;
+  background-clip: padding-box, border-box !important;
+  border-color: transparent !important;
+}
+
+/* ================================================================
+   BUTTON ENHANCEMENTS
+   ================================================================ */
+/* Ripple spans are injected by JS */
+.btn { position: relative; overflow: hidden; }
+
+/* Pulse on primary */
+.btn-primary {
+  animation: btn-pulse 2.8s ease-in-out infinite !important;
+}
+@keyframes btn-pulse {
+  0%, 100% { box-shadow: 0 12px 30px rgba(0,0,0,0.55), 0 0 0 0   rgba(var(--accent-rgb), 0.35); }
+  50%       { box-shadow: 0 12px 30px rgba(0,0,0,0.55), 0 0 0 8px rgba(var(--accent-rgb), 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary { animation: none !important; }
+}
+/* Magnetic wrapper handles x/y via JS inline style — nothing extra needed */
+
+/* ================================================================
+   SCROLL REVEAL
+   ================================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+.reveal--left  { transform: translateX(-30px); }
+.reveal--right { transform: translateX(30px);  }
+.reveal--left.is-visible,
+.reveal--right.is-visible { transform: translateX(0); }
+.reveal--scale  { transform: scale(0.94); }
+.reveal--scale.is-visible { transform: scale(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ================================================================
+   FOOTER — glass
+   ================================================================ */
+footer {
+  background: rgba(4, 4, 6, 0.68) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.07) !important;
+}
+
+/* ================================================================
+   G-MODE overrides — keep red theme but add glass
+   ================================================================ */
+body.g-mode .countdown-card,
+body.g-mode .tour-item,
+body.g-mode .subscribe-card {
+  border-top-color: rgba(240, 77, 77, 0.30) !important;
+  border-color: rgba(240, 77, 77, 0.15) !important;
+}
+body.g-mode .countdown-number {
+  background: linear-gradient(180deg, #ffd5d5 0%, rgba(240, 150, 150, 0.75) 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+body.g-mode .ambient-orb--1 { background: radial-gradient(circle, rgba(240,77,77,0.12), transparent 70%); }
+body.g-mode .ambient-orb--2 { background: radial-gradient(circle, rgba(180,20,20,0.09), transparent 70%); }
+body.g-mode .ambient-orb--3 { background: radial-gradient(circle, rgba(220,50,50,0.07), transparent 70%); }
+
+/* ================================================================
+   CITY PANEL GLASS
+   ================================================================ */
+.city-panel {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(22px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(160%) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-top-color: var(--glass-top) !important;
+}
+.city-panel-stat {
+  background: rgba(0, 0, 0, 0.25) !important;
+  border: 1px solid rgba(255, 255, 255, 0.07) !important;
+  border-radius: 12px !important;
+  padding: 12px !important;
+}
+
+/* ================================================================
+   NAV MOBILE DRAWER — glass
+   ================================================================ */
+@media (max-width: 768px) {
+  nav ul {
+    background: rgba(4, 4, 8, 0.88) !important;
+    backdrop-filter: blur(28px) saturate(170%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(170%) !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.08) !important;
+  }
+}
+
+/* ================================================================
+   HOLOGRAPHIC SECTION HEADING on hover
+   ================================================================ */
+.section-heading {
+  transition: text-shadow 0.3s ease;
+}
+.section-heading:hover {
+  text-shadow: 0 0 28px rgba(var(--accent-rgb), 0.35);
+}
+
+/* ================================================================
+   COUNTDOWN CARD — no-show state
+   ================================================================ */
+.countdown-card.no-shows {
+  opacity: 0.65;
+}
+.countdown-card.no-shows .countdown-event::after {
+  content: " — check back soon";
+  font-size: 0.65em;
+  color: var(--text-muted);
+  font-family: var(--font-base);
+  letter-spacing: 0.08em;
+  text-transform: none;
+}

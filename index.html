@@ -1,23 +1,37 @@
-<!-- deploy: v2 -->
+<!-- deploy: v3 -->
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>SAMRAJYA Tour –  Nawaj Portfolio</title>
+  <title>SAMRAJYA Tour — Nawaj Ansari</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Nawaj Ansari — independent artist from Handiguan to Dallas. SAMRAJYA Tour: live shows, music, and limited drops. Stream on Spotify and YouTube." />
+  <meta name="theme-color" content="#050505" />
+
+  <!-- Open Graph / Social sharing -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="SAMRAJYA Tour — Nawaj Ansari" />
+  <meta property="og:description" content="Pure creative force in monochrome. Tour dates, music, and limited drops." />
+  <meta property="og:image"       content="assets/img/hero-overlay-image.PNG" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/img/logo.PNG" type="image/png" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&family=Inter:wght@300;400;600&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@400;500;700&family=MedievalSharp&display=swap" rel="stylesheet">
 
-  <!-- Your styles -->
+  <!-- Base styles -->
   <link rel="stylesheet" href="assets/css/style.css" />
+  <!-- Glass 3D enhancement layer (additive) -->
+  <link rel="stylesheet" href="assets/css/effects.css" />
 
-  <!-- Your JS -->
+  <!-- JS -->
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js" defer></script>
   <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/effects.js" defer></script>
 </head>
 <body>
   <div id="particles-bg" aria-hidden="true"></div>
@@ -51,7 +65,7 @@
     <!-- HERO -->
     <section class="hero">
       <div class="hero-media" aria-hidden="true">
-        <img class="hero-poster" src="assets/img/hero-bg-image-g.PNG" alt="">
+        <img class="hero-poster" src="assets/img/hero-bg-image-g.PNG" alt="" aria-hidden="true">
         <video class="hero-video" muted playsinline loop preload="none" poster="assets/img/hero-bg-image-g.PNG">
           <source src="assets/img/hero-bg-g.webm" type="video/webm">
         </video>
@@ -75,7 +89,7 @@
         </p>
 
         <div class="hero-cta-row">
-          <button class="btn btn-primary" type="button" data-scroll="#tour">
+          <button class="btn btn-primary btn-magnetic" type="button" data-scroll="#tour">
             Next show – tickets
           </button>
           <!-- <button class="btn" type="button" data-scroll="#merch">Shop merch</button> -->
@@ -101,13 +115,13 @@
     </section>
 
     <!-- NEW ALBUM (inserted above Spotify) -->
-    <section class="album-section" aria-labelledby="album-title">
+    <section class="album-section aurora-bg" aria-labelledby="album-title">
       <div class="album-overlay" aria-hidden="true"></div>
       <div class="album-content">
-        <p class="section-label">New Album</p>
-        <h2 class="section-heading" id="album-title">New Album – Coming Soon</h2>
-        <p class="album-meta">Dropping January</p>
-        <p class="album-text">Pre-save and follow to be first in line when the album lands.</p>
+        <p class="section-label reveal" data-reveal-delay="0">New Album</p>
+        <h2 class="section-heading reveal" data-reveal-delay="80" id="album-title">New Album – Coming Soon</h2>
+        <p class="album-meta reveal" data-reveal-delay="140">Dropping January</p>
+        <p class="album-text reveal" data-reveal-delay="200">Pre-save and follow to be first in line when the album lands.</p>
 
         <div class="album-toggle" role="tablist" aria-label="Listen links">
           <button class="album-toggle-btn is-active" type="button" role="tab" aria-selected="true" data-target="spotify">Spotify</button>
@@ -124,14 +138,14 @@
     <!-- ALBUMS (inserted below New Album) -->
     <section class="albums-section" aria-labelledby="albums-title">
       <div class="albums-bg-video" aria-hidden="true">
-        <video autoplay muted loop playsinline preload="metadata">
-          <source src="./assets/video/albums-bg1.mp4" type="video/mp4">
+        <video muted loop playsinline preload="none" data-play-when-visible>
+          <source src="assets/video/albums-bg1.mp4" type="video/mp4">
         </video>
       </div>
 
       <div class="albums-content">
-        <p class="section-label">NAWAJ ANSARI's</p>
-        <h2 class="section-heading" id="albums-title">Albums in Orbit</h2>
+        <p class="section-label reveal">NAWAJ ANSARI's</p>
+        <h2 class="section-heading reveal" data-reveal-delay="80" id="albums-title">Albums in Orbit</h2>
 
         <div class="albums-stage" style="--quantity: 6;">
           <div class="albums-portrait" aria-hidden="true">
@@ -144,27 +158,27 @@
             <!-- Placeholder album covers + YouTube links -->
             <a class="album-card" href="https://www.youtube.com/watch?v=nabCqLmkIR4&list=PLODwOLMhpdH8O68ykq5B9tGpAmnkYxR3X" target="_blank" rel="noopener" style="--position: 1;">
               <span class="album-card-title">GAKO</span>
-              <img src="./assets/img/ALBUM_01.png" alt="Placeholder album cover">
+              <img src="assets/img/ALBUM_01.png" alt="Placeholder album cover" loading="lazy" decoding="async">
             </a>
             <a class="album-card" href="https://www.youtube.com/watch?v=PrBLvACROFk&list=PLODwOLMhpdH8IsfdiRRRoIc6NyNYDHppJ" target="_blank" rel="noopener" style="--position: 2;">
               <span class="album-card-title">25 IN THE RAIN</span>
-              <img src="./assets/img/ALBUM_02.png" alt="Placeholder album cover">
+              <img src="assets/img/ALBUM_02.png" alt="Placeholder album cover" loading="lazy" decoding="async">
             </a>
             <a class="album-card" href="https://www.youtube.com/watch?v=slLv5e8q6s8&list=PLODwOLMhpdH8GDBuFEhC_RL_xEwn2OPW-" target="_blank" rel="noopener" style="--position: 3;">
               <span class="album-card-title">HAZZAR QUITAB PART A</span>
-              <img src="./assets/img/ALBUM_03.png" alt="Placeholder album cover">
+              <img src="assets/img/ALBUM_03.png" alt="Placeholder album cover" loading="lazy" decoding="async">
             </a>
             <a class="album-card" href="https://www.youtube.com/watch?v=0WE-O9oq5hg&list=PLODwOLMhpdH8sA4do34KixFazA90VYLhD" target="_blank" rel="noopener" style="--position: 4;">
               <span class="album-card-title">HAZZAR QUITAB PART B</span>
-              <img src="./assets/img/ALBUM_04.png" alt="Placeholder album cover">
+              <img src="assets/img/ALBUM_04.png" alt="Placeholder album cover" loading="lazy" decoding="async">
             </a>
             <a class="album-card" href="https://www.youtube.com/watch?v=bb1HMIRyrNk&list=PLODwOLMhpdH-mkvPA8A5OOkdwgotG5Szm" target="_blank" rel="noopener" style="--position: 5;">
               <span class="album-card-title">RETRIBUTION</span>
-              <img src="./assets/img/ALBUM_05.png" alt="Placeholder album cover">
+              <img src="assets/img/ALBUM_05.png" alt="Placeholder album cover" loading="lazy" decoding="async">
             </a>
             <a class="album-card" href="https://www.youtube.com/@NawajAnsari" target="_blank" rel="noopener" style="--position: 6;">
               <span class="album-card-title">MILITARY MINDSET</span>
-              <img src="./assets/img/ALBUM_06.png" alt="Placeholder album cover">
+              <img src="assets/img/ALBUM_06.png" alt="Placeholder album cover" loading="lazy" decoding="async">
             </a>
           </div>
           <p class="albums-swipe-hint" id="albums-swipe-hint" aria-hidden="true">Swipe</p>
@@ -180,7 +194,6 @@
         <span class="spotify-mesh-orb spotify-mesh-orb--charcoal"></span>
       </div>
       <div class="spotify-light-hotspot" aria-hidden="true"></div>
-      <div class="spotify-glass-stage" aria-hidden="true"></div>
       <div class="spotify-overlay" aria-hidden="true"></div>
 
       <div class="spotify-content">
@@ -190,20 +203,14 @@
           <p class="spotify-subtext">Stream the latest drops</p>
         </div>
         <div class="spotify-stack-shell">
-          <div class="spotify-stack" aria-label="Spotify player">
-            <div class="spotify-stack-card spotify-stack-card--back-2" aria-hidden="true"></div>
-            <div class="spotify-stack-card spotify-stack-card--back-1" aria-hidden="true"></div>
-            <div class="spotify-card spotify-stack-card spotify-stack-card--front">
-              <div class="spotify-embed-frame">
-                <iframe class="spotify-embed"
-                  src="https://open.spotify.com/embed/artist/3dSiKDhXz6jbBNxFGSWO1y?utm_source=generator"
-                  width="100%" height="352" frameborder="0"
-                  allowfullscreen=""
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  loading="lazy"
-                  title="Listen on Spotify"></iframe>
-              </div>
-            </div>
+          <div class="spotify-embed-frame" aria-label="Spotify player">
+            <iframe class="spotify-embed"
+              src="https://open.spotify.com/embed/artist/3dSiKDhXz6jbBNxFGSWO1y?utm_source=generator"
+              width="100%" height="352" frameborder="0"
+              allowfullscreen=""
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+              title="Listen on Spotify"></iframe>
           </div>
         </div>
       </div>
@@ -212,13 +219,13 @@
    
 
     <!-- TOUR -->
-    <section id="tour" class="tour">
-      <p class="section-label">Live</p>
-      <h2 class="section-heading">Tour dates</h2>
+    <section id="tour" class="tour aurora-bg">
+      <p class="section-label reveal">Live</p>
+      <h2 class="section-heading reveal" data-reveal-delay="80">Tour dates</h2>
 
       <div class="tour-grid">
         <!-- COUNTDOWN CARD -->
-        <div class="countdown-card">
+        <div class="countdown-card glass-panel noise-texture reveal" data-reveal-delay="120">
           <div class="countdown-title">Next stop</div>
           <div class="countdown-event">Next show loading...</div>
 
@@ -244,7 +251,7 @@
           <p class="countdown-meta" id="next-show-text">Tour dates updating...</p>
 
           <div class="tour-cta">
-            <a class="btn btn-primary" id="next-show-link" href="#" target="_blank" rel="noopener">Buy tickets</a>
+            <a class="btn btn-primary btn-magnetic" id="next-show-link" href="#" target="_blank" rel="noopener">Buy tickets</a>
           </div>
         </div>
 
@@ -493,12 +500,12 @@
 
 
     <!-- ABOUT -->
-    <section id="about" class="about">
-      <p class="section-label">Story</p>
+    <section id="about" class="about aurora-bg">
+      <p class="section-label reveal">Story</p>
       <div class="about-grid">
         <div>
-          <h2 class="section-heading">From the galli of Handiguan to the city of Dallas with a vision</h2>
-          <div class="about-text">
+          <h2 class="section-heading reveal" data-reveal-delay="80">From the galli of Handiguan to the city of Dallas with a vision</h2>
+          <div class="about-text reveal" data-reveal-delay="160">
             <p>
               Raised between late-night studio session and bedroom speakers, <strong>NAWAJ ANSARI</strong> built a sound 
               that sits somewhere between industrial shadows and gospel glow. No label, no backing — just an 
@@ -511,7 +518,7 @@
             </p>
           </div>
         </div>
-        <div class="about-quote">
+        <div class="about-quote reveal reveal--right" data-reveal-delay="200">
           From a small room studio to sold-out cities — the mission stays the same:
           keep it REAL, keep it 1 HUNDRED, and move in SILENCE.
         </div>
@@ -519,17 +526,17 @@
     </section>
 
     <!-- SUBSCRIBE -->
-  <section id="subscribe" class="subscribe">
+  <section id="subscribe" class="subscribe aurora-bg">
     <div class="subscribe-shell">
       <div class="subscribe-heading">
         <p class="section-label">Register</p>
-        <h2 id="subscribe-title" class="subscribe-title">LET'S <span>GET</span> IN TOUCH</h2>
-        <p class="subscribe-subtext">
+        <h2 id="subscribe-title" class="subscribe-title reveal">LET'S <span>GET</span> IN TOUCH</h2>
+        <p class="subscribe-subtext reveal" data-reveal-delay="80">
           Join the list for drops, tour news, and exclusives. No spam, just the signal.
         </p>
       </div>
 
-      <div class="subscribe-card" role="form" aria-labelledby="subscribe-title">
+      <div class="subscribe-card glass-panel noise-texture reveal" data-reveal-delay="140" role="form" aria-labelledby="subscribe-title">
         <form id="subscribe-form" method="POST" action="https://script.google.com/macros/s/AKfycbwgWmd65EPqDdrjz9_XecIzoYn5EO7oAvN1Mt5RKLDHxpTG0nT_LKkv32vty49W3hdC/exec" target="lead_iframe" novalidate>
           <input type="text" id="company" name="company" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
           <input type="hidden" id="lead-source" name="source" value="website">
@@ -577,19 +584,19 @@
 
     <div class="footer-links social-glass-row">
       <a class="social-glass" href="https://www.instagram.com/nawaj.ansari/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-        <img class="social-icon-img social-glass-icon" src="assets/img/Instagram.png" alt="" aria-hidden="true" />
+        <img class="social-icon-img social-glass-icon" src="assets/img/Instagram.png" alt="" aria-hidden="true" loading="lazy" decoding="async" />
         <span class="sr-only">Instagram</span>
       </a>
       <a class="social-glass" href="https://open.spotify.com/artist/3dSiKDhXz6jbBNxFGSWO1y?si=0yKn-tgnSQ-V-ELWR9QOOQ" target="_blank" rel="noopener noreferrer" aria-label="Spotify">
-        <img class="social-icon-img social-glass-icon" src="assets/img/Spotify.png" alt="" aria-hidden="true" />
+        <img class="social-icon-img social-glass-icon" src="assets/img/Spotify.png" alt="" aria-hidden="true" loading="lazy" decoding="async" />
         <span class="sr-only">Spotify</span>
       </a>
       <a class="social-glass" href="https://www.youtube.com/channel/UCcTQqNP3v_mhO8UW9GAMx9w" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-        <img class="social-icon-img social-glass-icon" src="assets/img/Youtube.png" alt="" aria-hidden="true" />
+        <img class="social-icon-img social-glass-icon" src="assets/img/Youtube.png" alt="" aria-hidden="true" loading="lazy" decoding="async" />
         <span class="sr-only">YouTube</span>
       </a>
       <a class="social-glass" href="https://www.tiktok.com/@nawajansari20?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-        <img class="social-icon-img social-glass-icon" src="assets/img/Tiktok.png" alt="" aria-hidden="true" />
+        <img class="social-icon-img social-glass-icon" src="assets/img/Tiktok.png" alt="" aria-hidden="true" loading="lazy" decoding="async" />
         <span class="sr-only">TikTok</span>
       </a>
     </div>
@@ -611,12 +618,12 @@
   <footer id="contact">
     <span>© 2025 RINASA RECORDS. All rights reserved.</span>
     <div class="footer-logos">
-      <img src="assets/img/logo.PNG" alt="RINASA RECORDS" class="logo-mark-footer">
-      <img src="assets/img/Cafemandu Round Logo.PNG" alt="Cafemandu" class="logo-mark-footer">
-      <img src="assets/img/Khatra lifestyle.PNG" alt="Khatra lifestyle" class="logo-mark-footer">
-      <img src="assets/img/Jungey.PNG" alt="JUNGEY" class="logo-mark-footer">
-      <img src="assets/img/Dubai.PNG" alt="DUBAI" class="logo-mark-footer">
-      <img src="assets/img/Cruz_shots.PNG" alt="CruzShots" class="logo-mark-footer">
+      <img src="assets/img/logo.PNG" alt="RINASA RECORDS" class="logo-mark-footer" loading="lazy" decoding="async">
+      <img src="assets/img/Cafemandu Round Logo.PNG" alt="Cafemandu" class="logo-mark-footer" loading="lazy" decoding="async">
+      <img src="assets/img/Khatra lifestyle.PNG" alt="Khatra lifestyle" class="logo-mark-footer" loading="lazy" decoding="async">
+      <img src="assets/img/Jungey.PNG" alt="JUNGEY" class="logo-mark-footer" loading="lazy" decoding="async">
+      <img src="assets/img/Dubai.PNG" alt="DUBAI" class="logo-mark-footer" loading="lazy" decoding="async">
+      <img src="assets/img/Cruz_shots.PNG" alt="CruzShots" class="logo-mark-footer" loading="lazy" decoding="async">
   
     </div>
 

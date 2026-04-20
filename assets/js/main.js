@@ -1,5 +1,3 @@
-console.log("main.js loaded");
-
 const TOUR_DATES_JSON_PATH = "./assets/data/tour-dates.json";
 const TOUR_CACHE_KEY = "tourDatesCache_v4";
 const TOUR_CACHE_TTL_MS = 10 * 60 * 1000;
@@ -1317,11 +1315,15 @@ async function submitLead(payload) {
   const endpoint = typeof window.__LEAD_ENDPOINT__ === "string" ? window.__LEAD_ENDPOINT__ : null;
 
   if (endpoint) {
-    await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
+    try {
+      await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+    } catch (err) {
+      console.warn("submitLead: network error sending lead", err);
+    }
     return;
   }
 
@@ -1354,7 +1356,6 @@ function initGModeHeroVideo() {
       "canplay",
       () => {
         heroVideo.classList.add("is-ready");
-        console.log("Hero video ready", { src: heroVideo.currentSrc || heroVideo.src, readyState: heroVideo.readyState });
       },
       { once: true }
     );
@@ -1369,9 +1370,7 @@ function initGModeHeroVideo() {
   heroVideo.load();
   heroVideo
     .play()
-    .then(() => {
-      console.log("Hero video playing", { src: heroVideo.currentSrc || heroVideo.src, readyState: heroVideo.readyState });
-    })
+    .then(() => {})
     .catch((err) => {
       console.warn("Hero video autoplay blocked; keeping poster visible", err);
       heroVideo.classList.remove("is-ready");
@@ -1384,13 +1383,18 @@ function initParticlesBackground() {
   }
 
   const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+  const isTouchLike = window.matchMedia?.("(pointer: coarse)")?.matches;
+  const isCompactViewport = window.matchMedia?.("(max-width: 900px)")?.matches;
+  const particleCount = prefersReducedMotion ? 0 : isTouchLike || isCompactViewport ? 18 : 36;
+  const moveSpeed = isTouchLike || isCompactViewport ? 0.16 : 0.25;
+  const linksEnabled = !isTouchLike && !isCompactViewport;
 
   const baseConfig = {
     fullScreen: { enable: false },
-    fpsLimit: 60,
+    fpsLimit: isTouchLike || isCompactViewport ? 36 : 48,
     background: { color: "transparent" },
     particles: {
-      number: { value: prefersReducedMotion ? 0 : 45, density: { enable: true, area: 900 } },
+      number: { value: particleCount, density: { enable: true, area: 900 } },
       color: { value: "#ffffff" },
       shape: { type: "circle" },
       size: { value: { min: 0.8, max: 2.2 }, random: true },
@@ -1402,14 +1406,14 @@ function initParticlesBackground() {
       },
       move: {
         enable: !prefersReducedMotion,
-        speed: 0.25,
+        speed: moveSpeed,
         direction: "none",
         random: true,
         straight: false,
         outModes: { default: "out" }
       },
       links: {
-        enable: true,
+        enable: linksEnabled,
         distance: 140,
         opacity: 0.08,
         color: "#ffffff",
@@ -1499,6 +1503,43 @@ function initSpotifyReactiveBackground() {
   spotifySection.addEventListener("pointerenter", onPointerMove, { passive: true });
   spotifySection.addEventListener("pointerleave", onPointerLeave, { passive: true });
   setVars();
+}
+
+function initDeferredAmbientVideos() {
+  const videos = Array.from(document.querySelectorAll("video[data-play-when-visible]"));
+  if (!videos.length) return;
+
+  const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+  const isTouchLike = window.matchMedia?.("(pointer: coarse)")?.matches;
+
+  if (prefersReducedMotion || isTouchLike || !("IntersectionObserver" in window)) {
+    videos.forEach((video) => {
+      video.pause();
+      video.preload = "none";
+    });
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const video = entry.target;
+        if (!(video instanceof HTMLVideoElement)) return;
+
+        if (entry.isIntersecting && entry.intersectionRatio > 0.2) {
+          if (video.preload !== "metadata") {
+            video.preload = "metadata";
+          }
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      });
+    },
+    { threshold: [0, 0.2, 0.35] }
+  );
+
+  videos.forEach((video) => observer.observe(video));
 }
 
 function initAlbumsOrbitMobile() {
@@ -1713,6 +1754,9 @@ function updateCountdown() {
     hoursEl.textContent = "00";
     minutesEl.textContent = "00";
     secondsEl.textContent = "00";
+    // Surface a visual "no upcoming shows" state
+    const card = document.querySelector(".countdown-card");
+    if (card && !countdownTarget) card.classList.add("no-shows");
     return;
   }
 
@@ -1833,8 +1877,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!heroDroplets) return;
     heroDroplets.innerHTML = "";
     const isGMode = document.body.classList.contains("g-mode");
-    const baseCount = Math.max(40, Math.floor(window.innerWidth / 22));
-    const dropletCount = Math.min(110, Math.round(baseCount * (isGMode ? 1.3 : 1)));
+    const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    const isTouchLike = window.matchMedia?.("(pointer: coarse)")?.matches;
+    if (prefersReducedMotion || isTouchLike || window.innerWidth < 900) {
+      return;
+    }
+
+    const baseCount = Math.max(24, Math.floor(window.innerWidth / 34));
+    const dropletCount = Math.min(54, Math.round(baseCount * (isGMode ? 1.15 : 1)));
 
     for (let i = 0; i < dropletCount; i += 1) {
       const droplet = document.createElement("span");
@@ -1855,6 +1905,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   buildHeroDroplets();
   initAlbumsOrbitMobile();
+  initDeferredAmbientVideos();
   if (heroDroplets) {
     let resizeTimer;
     window.addEventListener("resize", () => {
@@ -2019,12 +2070,5 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   initParticlesBackground();
   initSpotifyReactiveBackground();
-
-  // Smoke test to verify canvas creation without breaking UI
-  setTimeout(() => {
-    const canvas = document.querySelector("#particles-bg canvas");
-    const msg = canvas ? "Particles smoke test: PASS" : "Particles smoke test: FAIL";
-    console.log(msg);
-  }, 1500);
 
 });
