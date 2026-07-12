@@ -794,3 +794,43 @@ body.g-mode .album-toggle-btn.is-active {
   border-top-color: var(--g-top) !important;
   box-shadow:        var(--g-shadow) !important;
 }
+
+/* ============================================================
+   27. TOUR — bento composition + neumorphic countdown digits
+   ============================================================ */
+
+/* Countdown card = the large "hero" bento cell */
+.countdown-card {
+  border-radius: var(--bento-radius-lg) !important;
+  background:     var(--g-bg) !important;
+  border:         1px solid var(--g-border) !important;
+  border-top-color: var(--g-top) !important;
+  box-shadow:     var(--g-shadow) !important;
+  backdrop-filter: blur(var(--g-blur)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--g-blur)) saturate(150%);
+}
+
+/* Neumorphic digit tiles — pressed-into-the-panel readout */
+.countdown-unit {
+  background: var(--neu-surface) !important;
+  border: 1px solid transparent !important;
+  border-radius: var(--bento-radius-sm) !important;
+  box-shadow: var(--neu-shadow-in) !important;
+}
+
+/* Tour list = its own card grid, not a flat stack — cards wrap
+   naturally instead of the previous single flex column. */
+.tour-list {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
+  gap: var(--bento-gap) !important;
+  align-content: start;
+}
+
+.tour-item {
+  border-radius:  var(--bento-radius-md) !important;
+  background:     var(--g-bg) !important;
+  border:         1px solid var(--g-border) !important;
+  border-top-color: var(--g-top) !important;
+  box-shadow:     var(--g-shadow) !important;
+}
