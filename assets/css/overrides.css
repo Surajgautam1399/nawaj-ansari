@@ -834,3 +834,18 @@ body.g-mode .album-toggle-btn.is-active {
   border-top-color: var(--g-top) !important;
   box-shadow:     var(--g-shadow) !important;
 }
+
+/* ============================================================
+   28. CITIES ARCHIVE — bento gap + claymorphic corner emblems
+   NOTE: .city-card's transform/opacity/filter are entirely driven
+   by JS-set --delta/--abs-delta custom properties (the deck-stack
+   effect) — never touch those. Only border/shadow/radius on the
+   card, and the independent corner-badge children, are restyled.
+   ============================================================ */
+.city-card-corner,
+.city-card-emblem {
+  background: var(--neu-surface) !important;
+  border: 1px solid transparent !important;
+  box-shadow: var(--clay-shadow) !important;
+  color: color-mix(in srgb, var(--accent) 82%, var(--text)) !important;
+}
