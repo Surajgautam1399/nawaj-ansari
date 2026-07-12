@@ -735,3 +735,27 @@ header.is-scrolled {
 .subscribe textarea::placeholder {
   color: color-mix(in srgb, var(--text-muted) 88%, var(--text) 12%);
 }
+
+/* ============================================================
+   24. HERO — glass token consolidation + brutalist tagline rule
+   ============================================================ */
+.hero-description {
+  background:       var(--g-bg) !important;
+  border:           1px solid var(--g-border) !important;
+  border-top-color: var(--g-top) !important;
+  backdrop-filter:  blur(var(--g-blur)) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(var(--g-blur)) saturate(140%) !important;
+  box-shadow:       var(--g-shadow) !important;
+}
+
+/* Hard-edge divider under the tagline — the hero's brutalist anchor
+   alongside the oversized display headline. */
+.hero-tagline::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 2px;
+  margin: 10px auto 0;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
