@@ -779,3 +779,18 @@ body.g-mode .album-toggle-btn.is-active {
   background: var(--neu-surface) !important;
   box-shadow: var(--neu-shadow-out), 0 0 0 1px var(--clay-tint) !important;
 }
+
+/* ============================================================
+   26. SPOTIFY / YOUTUBE — consolidate embed frame onto shared
+   glass tokens (previously duplicated its own --glass-*/
+   --spotify-frame-* families defined in effects.css/style.css).
+   Brand-color ambient backgrounds (Section 17) are the deliberate
+   one-extra-accent exception and stay untouched.
+   ============================================================ */
+#spotify .spotify-embed-frame,
+#youtube .spotify-embed-frame {
+  background:       var(--g-bg) !important;
+  border-color:     var(--g-border) !important;
+  border-top-color: var(--g-top) !important;
+  box-shadow:        var(--g-shadow) !important;
+}
