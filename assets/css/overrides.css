@@ -759,3 +759,23 @@ header.is-scrolled {
   background: var(--accent);
   box-shadow: 0 0 12px var(--accent-glow);
 }
+
+/* ============================================================
+   25. NEW ALBUM — neumorphic Spotify/YouTube toggle switch
+   (.album-content glass card already unified across both themes
+   above in Section 9 — no change needed there.)
+   ============================================================ */
+.album-toggle,
+body.g-mode .album-toggle {
+  background: var(--neu-surface) !important;
+  border: 1px solid transparent !important;
+  box-shadow: var(--neu-shadow-in) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.album-toggle-btn.is-active,
+body.g-mode .album-toggle-btn.is-active {
+  background: var(--neu-surface) !important;
+  box-shadow: var(--neu-shadow-out), 0 0 0 1px var(--clay-tint) !important;
+}
