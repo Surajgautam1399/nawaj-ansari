@@ -30,7 +30,7 @@
   --glass-shadow: var(--shadow);
   --glass-blur: 16px;
   --font-base: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-gmode: "MedievalSharp", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-gmode: "Pirata One", Georgia, "Times New Roman", serif;
   --section-min-height: clamp(420px, 54vh, 585px);
   --header-height: 72px;
 }
@@ -91,7 +91,9 @@ body.g-mode {
   --glow-soft: 0 0 18px rgba(240, 77, 77, 0.12);
   --hero-droplet-core: #ffe5e5;
   --hero-droplet-glow: #b1121c;
-  font-family: var(--font-gmode);
+  /* Body copy stays on --font-base (Inter) for legibility. The gothic
+     --font-gmode display face is applied only to the hero headline
+     (see .hero-name-backdrop below), never inherited site-wide. */
   background: var(--bg);
   color: var(--text);
 }
@@ -605,6 +607,9 @@ body.g-mode .hero-overlay-image::after {
 }
 
 body.g-mode .hero-name-backdrop {
+  font-family: var(--font-gmode);
+  letter-spacing: 0.06em;
+  line-height: 0.98; /* blackletter glyphs need more clearance than the tight 0.82 tuned for Oswald */
   color: #c8181c;
   opacity: 0.88;
   text-shadow:
