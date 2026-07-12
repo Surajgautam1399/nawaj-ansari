@@ -21,7 +21,40 @@
   --g-shadow:
     0 20px 60px rgba(0, 0, 0, 0.55),
     inset 0 1px 0 rgba(255, 255, 255, 0.10);
+
+  /* --- Bento grid --- */
+  --bento-gap:         16px;
+  --bento-radius-lg:   28px;
+  --bento-radius-md:   20px;
+  --bento-radius-sm:   14px;
+
+  /* --- Neumorphism (dark-surface variant: two-tone emboss on a
+     near-black panel — derived from theme tokens so G Mode inherits
+     the red palette automatically) --- */
+  --neu-surface:    color-mix(in srgb, var(--surface-2) 88%, var(--bg) 12%);
+  --neu-light:      color-mix(in srgb, var(--text) 7%, transparent);
+  --neu-dark:       color-mix(in srgb, black 60%, transparent);
+  --neu-shadow-out:
+    6px 6px 14px var(--neu-dark),
+    -6px -6px 14px var(--neu-light);
+  --neu-shadow-in:
+    inset 4px 4px 9px var(--neu-dark),
+    inset -4px -4px 9px var(--neu-light);
+
+  /* --- Claymorphism (soft puffy badges/icon buttons, accent-tinted) --- */
+  --clay-radius: 22px;
+  --clay-tint:   color-mix(in srgb, var(--accent) 16%, transparent);
+  --clay-shadow:
+    0 10px 22px rgba(0, 0, 0, 0.38),
+    0 0 0 1px var(--clay-tint),
+    inset 0 2px 2px rgba(255, 255, 255, 0.22),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.28);
 }
+
+/* Effect budget: max 3 stacked surface effects per element (e.g.
+   glass blur + 1px border + 1 shadow group). Never combine glass +
+   clay + neumorphism on the same element — pick the one aesthetic
+   that fits that element's role (see per-section comments below). */
 
 /* ============================================================
    2. SECTION DIVIDERS — uniform across every section
