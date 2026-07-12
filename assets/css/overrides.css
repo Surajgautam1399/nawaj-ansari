@@ -711,3 +711,27 @@ header.is-scrolled {
 .logo-mark-footer {
   box-shadow: var(--clay-shadow) !important;
 }
+
+/* ============================================================
+   23. SUBSCRIBE — neumorphic inset form fields
+   ============================================================ */
+.subscribe input,
+.subscribe textarea,
+.subscribe select {
+  background: var(--neu-surface) !important;
+  border: 1px solid transparent !important;
+  box-shadow: var(--neu-shadow-in) !important;
+}
+
+.subscribe input:focus,
+.subscribe textarea:focus,
+.subscribe select:focus {
+  box-shadow:
+    var(--neu-shadow-in),
+    0 0 0 3px color-mix(in srgb, var(--accent-glow) 65%, transparent) !important;
+}
+
+.subscribe input::placeholder,
+.subscribe textarea::placeholder {
+  color: color-mix(in srgb, var(--text-muted) 88%, var(--text) 12%);
+}
