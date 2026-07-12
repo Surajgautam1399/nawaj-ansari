@@ -414,6 +414,31 @@
   }
 
   /* ================================================================
+     STICKY HEADER GLASS
+     Adds .is-scrolled to <header> once the page scrolls past the
+     hero pill's resting position, for a stronger glass strip.
+     ================================================================ */
+  function initStickyHeaderGlass() {
+    const header = document.querySelector('header');
+    if (!header) return;
+
+    let scheduled = false;
+    function update() {
+      header.classList.toggle('is-scrolled', window.scrollY > 24);
+      scheduled = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!scheduled) {
+        scheduled = true;
+        requestAnimationFrame(update);
+      }
+    }, { passive: true });
+
+    update();
+  }
+
+  /* ================================================================
      INIT — DOMContentLoaded guard
      ================================================================ */
   function init() {
@@ -426,6 +451,7 @@
     initCityCardShimmer();
     initStatCounters();
     initParallax();
+    initStickyHeaderGlass();
 
     // Inject ambient orbs into key sections
     injectAmbientOrbs('.hero',      3);

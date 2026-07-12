@@ -621,3 +621,48 @@ body.g-mode .countdown-number {
     letter-spacing: inherit !important;
   }
 }
+
+/* ============================================================
+   21. HEADER / NAV — neumorphic toggle, scroll-triggered glass
+   ============================================================ */
+
+/* Sticky header only picks up a stronger glass strip once the page
+   has scrolled — stays a plain minimal pill at the top of the hero. */
+header {
+  transition: background 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  border: 1px solid transparent;
+}
+
+header.is-scrolled {
+  background: color-mix(in srgb, var(--bg) 62%, transparent) !important;
+  backdrop-filter: blur(var(--g-blur)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--g-blur)) saturate(160%);
+  border-color: var(--g-border);
+  box-shadow: var(--g-shadow);
+}
+
+/* Neumorphic pill for the theme toggle — soft dual-tone emboss
+   instead of the glassy gradient, single accent surface. */
+.theme-toggle {
+  background: var(--neu-surface) !important;
+  border-color: transparent !important;
+  box-shadow: var(--neu-shadow-out) !important;
+}
+
+.theme-toggle:hover {
+  transform: translate3d(-50%, -52%, 0) !important;
+  box-shadow: var(--neu-shadow-out), 0 0 0 1px var(--clay-tint) !important;
+}
+
+.theme-toggle:active,
+.theme-toggle[aria-pressed="true"] {
+  box-shadow: var(--neu-shadow-in) !important;
+}
+
+/* The toggle's glass shimmer pseudo-elements don't suit a neumorphic
+   surface — tone them down rather than fully remove (keeps the
+   micro-motion the effect budget allows for a small control). */
+.theme-toggle::before,
+.theme-toggle::after {
+  opacity: 0.35 !important;
+}
