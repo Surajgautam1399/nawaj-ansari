@@ -21,7 +21,40 @@
   --g-shadow:
     0 20px 60px rgba(0, 0, 0, 0.55),
     inset 0 1px 0 rgba(255, 255, 255, 0.10);
+
+  /* --- Bento grid --- */
+  --bento-gap:         16px;
+  --bento-radius-lg:   28px;
+  --bento-radius-md:   20px;
+  --bento-radius-sm:   14px;
+
+  /* --- Neumorphism (dark-surface variant: two-tone emboss on a
+     near-black panel — derived from theme tokens so G Mode inherits
+     the red palette automatically) --- */
+  --neu-surface:    color-mix(in srgb, var(--surface-2) 88%, var(--bg) 12%);
+  --neu-light:      color-mix(in srgb, var(--text) 7%, transparent);
+  --neu-dark:       color-mix(in srgb, black 60%, transparent);
+  --neu-shadow-out:
+    6px 6px 14px var(--neu-dark),
+    -6px -6px 14px var(--neu-light);
+  --neu-shadow-in:
+    inset 4px 4px 9px var(--neu-dark),
+    inset -4px -4px 9px var(--neu-light);
+
+  /* --- Claymorphism (soft puffy badges/icon buttons, accent-tinted) --- */
+  --clay-radius: 22px;
+  --clay-tint:   color-mix(in srgb, var(--accent) 16%, transparent);
+  --clay-shadow:
+    0 10px 22px rgba(0, 0, 0, 0.38),
+    0 0 0 1px var(--clay-tint),
+    inset 0 2px 2px rgba(255, 255, 255, 0.22),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.28);
 }
+
+/* Effect budget: max 3 stacked surface effects per element (e.g.
+   glass blur + 1px border + 1 shadow group). Never combine glass +
+   clay + neumorphism on the same element — pick the one aesthetic
+   that fits that element's role (see per-section comments below). */
 
 /* ============================================================
    2. SECTION DIVIDERS — uniform across every section
@@ -249,7 +282,7 @@ body.g-mode .album-content {
 /* Stage sizing — wider radius so cards have breathing room */
 .albums-stage {
   --stage-size:  clamp(290px, 42vw, 360px) !important;
-  --ring-radius: calc(var(--stage-size) * 1.1) !important;
+  --ring-radius: calc(var(--stage-size) * 0.92) !important;
 }
 
 /* Album card images — premium glass borders */
@@ -587,4 +620,290 @@ body.g-mode .countdown-number {
     filter: none !important;
     letter-spacing: inherit !important;
   }
+}
+
+/* ============================================================
+   21. HEADER / NAV — neumorphic toggle, scroll-triggered glass
+   ============================================================ */
+
+/* Sticky header only picks up a stronger glass strip once the page
+   has scrolled — stays a plain minimal pill at the top of the hero. */
+header {
+  transition: background 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  border: 1px solid transparent;
+}
+
+header.is-scrolled {
+  background: color-mix(in srgb, var(--bg) 62%, transparent) !important;
+  backdrop-filter: blur(var(--g-blur)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--g-blur)) saturate(160%);
+  border-color: var(--g-border);
+  box-shadow: var(--g-shadow);
+}
+
+/* Neumorphic pill for the theme toggle — soft dual-tone emboss
+   instead of the glassy gradient, single accent surface. */
+.theme-toggle {
+  background: var(--neu-surface) !important;
+  border-color: transparent !important;
+  box-shadow: var(--neu-shadow-out) !important;
+}
+
+.theme-toggle:hover {
+  transform: translate3d(-50%, -52%, 0) !important;
+  box-shadow: var(--neu-shadow-out), 0 0 0 1px var(--clay-tint) !important;
+}
+
+.theme-toggle:active,
+.theme-toggle[aria-pressed="true"] {
+  box-shadow: var(--neu-shadow-in) !important;
+}
+
+/* The toggle's glass shimmer pseudo-elements don't suit a neumorphic
+   surface — tone them down rather than fully remove (keeps the
+   micro-motion the effect budget allows for a small control). */
+.theme-toggle::before,
+.theme-toggle::after {
+  opacity: 0.35 !important;
+}
+
+/* ============================================================
+   22. FOOTER / SOCIAL ROW — bento strip + claymorphic icon buttons
+   ============================================================ */
+.social-glass-row {
+  gap: var(--bento-gap) !important;
+  padding: 12px !important;
+  border-radius: var(--bento-radius-lg);
+  background: var(--g-bg);
+  border: 1px solid var(--g-border);
+  max-width: max-content;
+  margin: 0 auto;
+}
+
+.footer-logos {
+  gap: var(--bento-gap) !important;
+}
+
+/* Claymorphic puff — soft accent-tinted shadow, no glass blur/shimmer */
+.social-glass {
+  background: var(--neu-surface) !important;
+  border: 1px solid transparent !important;
+  box-shadow: var(--clay-shadow) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  animation: none !important;
+}
+
+.social-glass::before,
+.social-glass::after {
+  display: none !important;
+}
+
+.social-glass:hover {
+  transform: translateZ(0) scale(1.06) translateY(-2px) !important;
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.42),
+    0 0 0 1px var(--clay-tint),
+    inset 0 2px 2px rgba(255, 255, 255, 0.26),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.24) !important;
+}
+
+.logo-mark-footer {
+  box-shadow: var(--clay-shadow) !important;
+}
+
+/* ============================================================
+   23. SUBSCRIBE — neumorphic inset form fields
+   ============================================================ */
+.subscribe input,
+.subscribe textarea,
+.subscribe select {
+  background: var(--neu-surface) !important;
+  border: 1px solid transparent !important;
+  box-shadow: var(--neu-shadow-in) !important;
+}
+
+.subscribe input:focus,
+.subscribe textarea:focus,
+.subscribe select:focus {
+  box-shadow:
+    var(--neu-shadow-in),
+    0 0 0 3px color-mix(in srgb, var(--accent-glow) 65%, transparent) !important;
+}
+
+.subscribe input::placeholder,
+.subscribe textarea::placeholder {
+  color: color-mix(in srgb, var(--text-muted) 88%, var(--text) 12%);
+}
+
+/* ============================================================
+   24. HERO — glass token consolidation + brutalist tagline rule
+   ============================================================ */
+.hero-description {
+  background:       var(--g-bg) !important;
+  border:           1px solid var(--g-border) !important;
+  border-top-color: var(--g-top) !important;
+  backdrop-filter:  blur(var(--g-blur)) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(var(--g-blur)) saturate(140%) !important;
+  box-shadow:       var(--g-shadow) !important;
+}
+
+/* Hard-edge divider under the tagline — the hero's brutalist anchor
+   alongside the oversized display headline. */
+.hero-tagline::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 2px;
+  margin: 10px auto 0;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+/* ============================================================
+   25. NEW ALBUM — neumorphic Spotify/YouTube toggle switch
+   (.album-content glass card already unified across both themes
+   above in Section 9 — no change needed there.)
+   ============================================================ */
+.album-toggle,
+body.g-mode .album-toggle {
+  background: var(--neu-surface) !important;
+  border: 1px solid transparent !important;
+  box-shadow: var(--neu-shadow-in) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.album-toggle-btn.is-active,
+body.g-mode .album-toggle-btn.is-active {
+  background: var(--neu-surface) !important;
+  box-shadow: var(--neu-shadow-out), 0 0 0 1px var(--clay-tint) !important;
+}
+
+/* ============================================================
+   26. SPOTIFY / YOUTUBE — consolidate embed frame onto shared
+   glass tokens (previously duplicated its own --glass-*/
+   --spotify-frame-* families defined in effects.css/style.css).
+   Brand-color ambient backgrounds (Section 17) are the deliberate
+   one-extra-accent exception and stay untouched.
+   ============================================================ */
+#spotify .spotify-embed-frame,
+#youtube .spotify-embed-frame {
+  background:       var(--g-bg) !important;
+  border-color:     var(--g-border) !important;
+  border-top-color: var(--g-top) !important;
+  box-shadow:        var(--g-shadow) !important;
+}
+
+/* ============================================================
+   27. TOUR — bento composition + neumorphic countdown digits
+   ============================================================ */
+
+/* Countdown card = the large "hero" bento cell */
+.countdown-card {
+  border-radius: var(--bento-radius-lg) !important;
+  background:     var(--g-bg) !important;
+  border:         1px solid var(--g-border) !important;
+  border-top-color: var(--g-top) !important;
+  box-shadow:     var(--g-shadow) !important;
+  backdrop-filter: blur(var(--g-blur)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--g-blur)) saturate(150%);
+}
+
+/* Neumorphic digit tiles — pressed-into-the-panel readout */
+.countdown-unit {
+  background: var(--neu-surface) !important;
+  border: 1px solid transparent !important;
+  border-radius: var(--bento-radius-sm) !important;
+  box-shadow: var(--neu-shadow-in) !important;
+}
+
+/* Tour list = its own card grid, not a flat stack — cards wrap
+   naturally instead of the previous single flex column. */
+.tour-list {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
+  gap: var(--bento-gap) !important;
+  align-content: start;
+}
+
+.tour-item {
+  border-radius:  var(--bento-radius-md) !important;
+  background:     var(--g-bg) !important;
+  border:         1px solid var(--g-border) !important;
+  border-top-color: var(--g-top) !important;
+  box-shadow:     var(--g-shadow) !important;
+}
+
+/* ============================================================
+   28. CITIES ARCHIVE — bento gap + claymorphic corner emblems
+   NOTE: .city-card's transform/opacity/filter are entirely driven
+   by JS-set --delta/--abs-delta custom properties (the deck-stack
+   effect) — never touch those. Only border/shadow/radius on the
+   card, and the independent corner-badge children, are restyled.
+   ============================================================ */
+.city-card-corner,
+.city-card-emblem {
+  background: var(--neu-surface) !important;
+  border: 1px solid transparent !important;
+  box-shadow: var(--clay-shadow) !important;
+  color: color-mix(in srgb, var(--accent) 82%, var(--text)) !important;
+}
+
+/* ============================================================
+   29. ALBUMS — Now Playing bento panel, brutalist heading,
+   claymorphic title badges
+   ============================================================ */
+.now-playing-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: fit-content;
+  margin: 32px auto 0;
+  padding: 16px 22px;
+  max-width: 320px;
+  border-radius: var(--bento-radius-md);
+  background: var(--g-bg);
+  border: 1px solid var(--g-border);
+  border-top-color: var(--g-top);
+  box-shadow: var(--g-shadow);
+  backdrop-filter: blur(var(--g-blur)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--g-blur)) saturate(150%);
+  text-align: left;
+}
+
+.now-playing-eyebrow {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+}
+
+.now-playing-title {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.now-playing-hint {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* Brutalist heading anchor for the ring */
+.albums-content #albums-title {
+  border-bottom: 3px solid var(--accent) !important;
+  padding-bottom: 10px;
+  display: inline-block;
+  letter-spacing: 0.08em !important;
+}
+
+/* Claymorphic title badge (replaces the flat glass pill) */
+.album-card-title {
+  background: var(--neu-surface) !important;
+  border: 1px solid transparent !important;
+  box-shadow: var(--clay-shadow) !important;
+  text-shadow: none !important;
 }

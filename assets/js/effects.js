@@ -62,6 +62,8 @@
      the existing ring transform
      ================================================================ */
   function initAlbumCardShimmer() {
+    const nowPlayingTitle = document.getElementById('now-playing-title');
+
     document.querySelectorAll('.album-card').forEach((card) => {
       // Inject foil element if not present
       if (!card.querySelector('.album-card-foil')) {
@@ -69,6 +71,17 @@
         foil.className = 'album-card-foil';
         foil.setAttribute('aria-hidden', 'true');
         card.appendChild(foil);
+      }
+
+      // "Now Playing" companion panel — synced from the same
+      // hover/focus interaction the shimmer effect already listens for.
+      if (nowPlayingTitle) {
+        const titleEl = card.querySelector('.album-card-title');
+        const syncNowPlaying = () => {
+          if (titleEl) nowPlayingTitle.textContent = titleEl.textContent;
+        };
+        card.addEventListener('mouseenter', syncNowPlaying);
+        card.addEventListener('focus', syncNowPlaying);
       }
 
       card.addEventListener('mousemove', (e) => {
@@ -414,6 +427,31 @@
   }
 
   /* ================================================================
+     STICKY HEADER GLASS
+     Adds .is-scrolled to <header> once the page scrolls past the
+     hero pill's resting position, for a stronger glass strip.
+     ================================================================ */
+  function initStickyHeaderGlass() {
+    const header = document.querySelector('header');
+    if (!header) return;
+
+    let scheduled = false;
+    function update() {
+      header.classList.toggle('is-scrolled', window.scrollY > 24);
+      scheduled = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!scheduled) {
+        scheduled = true;
+        requestAnimationFrame(update);
+      }
+    }, { passive: true });
+
+    update();
+  }
+
+  /* ================================================================
      INIT — DOMContentLoaded guard
      ================================================================ */
   function init() {
@@ -426,6 +464,7 @@
     initCityCardShimmer();
     initStatCounters();
     initParallax();
+    initStickyHeaderGlass();
 
     // Inject ambient orbs into key sections
     injectAmbientOrbs('.hero',      3);

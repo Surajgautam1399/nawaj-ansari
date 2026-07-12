@@ -211,7 +211,6 @@ header {
 .album-card {
   --mx: 0.5;
   --my: 0.5;
-  position: relative;
 }
 .album-card::after {
   content: "";
@@ -440,7 +439,7 @@ header {
   position: absolute;
   top: -14px; left: 18px;
   font-size: 8rem;
-  font-family: "Cormorant Garamond", serif;
+  font-family: "Oswald", sans-serif;
   color: rgba(255, 255, 255, 0.05);
   line-height: 1;
   pointer-events: none;
