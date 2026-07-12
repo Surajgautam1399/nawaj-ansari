@@ -62,6 +62,8 @@
      the existing ring transform
      ================================================================ */
   function initAlbumCardShimmer() {
+    const nowPlayingTitle = document.getElementById('now-playing-title');
+
     document.querySelectorAll('.album-card').forEach((card) => {
       // Inject foil element if not present
       if (!card.querySelector('.album-card-foil')) {
@@ -69,6 +71,17 @@
         foil.className = 'album-card-foil';
         foil.setAttribute('aria-hidden', 'true');
         card.appendChild(foil);
+      }
+
+      // "Now Playing" companion panel — synced from the same
+      // hover/focus interaction the shimmer effect already listens for.
+      if (nowPlayingTitle) {
+        const titleEl = card.querySelector('.album-card-title');
+        const syncNowPlaying = () => {
+          if (titleEl) nowPlayingTitle.textContent = titleEl.textContent;
+        };
+        card.addEventListener('mouseenter', syncNowPlaying);
+        card.addEventListener('focus', syncNowPlaying);
       }
 
       card.addEventListener('mousemove', (e) => {
