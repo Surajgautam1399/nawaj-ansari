@@ -27,6 +27,8 @@
   <link rel="stylesheet" href="assets/css/style.css" />
   <!-- Glass 3D enhancement layer (additive) -->
   <link rel="stylesheet" href="assets/css/effects.css" />
+  <!-- Unified design system overrides (highest specificity) -->
+  <link rel="stylesheet" href="assets/css/overrides.css" />
 
   <!-- JS -->
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js" defer></script>
@@ -46,6 +48,10 @@
       <span class="sr-only">Toggle navigation</span>
       <span class="nav-toggle-bar"></span>
     </button>
+    <div class="g-mode-orb-wrap" aria-hidden="true">
+      <span class="g-mode-orb"></span>
+      <span class="g-mode-orb-ring"></span>
+    </div>
     <button class="theme-toggle" id="g-mode-toggle" aria-pressed="false">
       G Mode
     </button>

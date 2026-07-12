@@ -1,0 +1,590 @@
+/* ================================================================
+   OVERRIDES.CSS — Unified Futuristic Design System
+   Loaded after effects.css — highest-specificity layer
+   ================================================================ */
+
+/* ============================================================
+   1. GLOBAL DESIGN TOKENS
+   ============================================================ */
+:root {
+  --sec-border:        1px solid rgba(255, 255, 255, 0.06);
+  --sec-pad:           96px 6vw;
+  --r-card:            20px;
+  --r-sm:              12px;
+  --r-pill:            999px;
+
+  --g-bg:              rgba(255, 255, 255, 0.032);
+  --g-bg-hover:        rgba(255, 255, 255, 0.058);
+  --g-border:          rgba(255, 255, 255, 0.08);
+  --g-top:             rgba(255, 255, 255, 0.18);
+  --g-blur:            22px;
+  --g-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
+}
+
+/* ============================================================
+   2. SECTION DIVIDERS — uniform across every section
+   ============================================================ */
+.album-section,
+.albums-section,
+#spotify.spotify-section,
+#youtube.spotify-section,
+.tour,
+.cities-archive,
+.about,
+.subscribe {
+  border-top:    var(--sec-border) !important;
+  border-bottom: var(--sec-border) !important;
+}
+
+/* ============================================================
+   3. SECTION PADDING CONSISTENCY
+   ============================================================ */
+.album-section,
+.albums-section,
+.tour,
+.about,
+.subscribe {
+  padding: var(--sec-pad) !important;
+}
+#spotify.spotify-section,
+#youtube.spotify-section { padding: 90px 6vw !important; }
+.cities-archive            { padding: 80px 6vw !important; }
+
+@media (max-width: 820px) {
+  .album-section,
+  .albums-section,
+  .tour,
+  .about,
+  .subscribe              { padding: 72px 5vw !important; }
+  .cities-archive         { padding: 64px 5vw !important; }
+}
+
+/* ============================================================
+   4. SECTION LABELS — Accent color + decorative leading line
+   ============================================================ */
+.section-label {
+  display:         flex !important;
+  align-items:     center;
+  gap:             10px;
+  color:           var(--accent) !important;
+  letter-spacing:  0.22em !important;
+  font-size:       0.72rem !important;
+}
+
+.section-label::before {
+  content:     "";
+  display:     block;
+  width:       22px;
+  height:      1px;
+  background:  var(--accent);
+  box-shadow:  0 0 10px rgba(var(--accent-rgb), 0.65);
+  flex-shrink: 0;
+}
+
+/* Cities archive label is already gradient — preserve it */
+.cities-archive .section-label { color: rgba(235, 245, 255, 0.65) !important; }
+.cities-archive .section-label::before { background: rgba(235, 245, 255, 0.65); box-shadow: none; }
+
+/* ============================================================
+   5. SECTION HEADINGS — Interactive hover glow
+   ============================================================ */
+.section-heading {
+  cursor:     default;
+  transition: text-shadow 0.35s ease, letter-spacing 0.35s ease !important;
+}
+
+.section-heading:hover {
+  text-shadow:
+    0 0 18px rgba(var(--accent-rgb), 0.50),
+    0 0 40px rgba(var(--accent-rgb), 0.22) !important;
+  letter-spacing: 0.15em !important;
+}
+
+/* Cities section heading has its own gradient — skip hover text-shadow trick there */
+.cities-archive .section-heading:hover {
+  filter: drop-shadow(0 0 12px rgba(var(--accent-rgb), 0.35));
+  text-shadow: none !important;
+}
+
+/* ============================================================
+   6. HERO — Kill bad rain-drop pseudo-elements + droplets
+   ============================================================ */
+.hero-name-backdrop::before,
+.hero-name-backdrop::after {
+  display: none !important;
+}
+
+.hero-droplet {
+  display: none !important;
+}
+
+/* ============================================================
+   7. HERO RIBBON / TICKER — Premium glass ticker tape
+   ============================================================ */
+.hero-ribbon {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.09) 50%,
+    rgba(255, 255, 255, 0.04) 100%
+  ) !important;
+  border-top:    1px solid rgba(255, 255, 255, 0.16) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(10px) saturate(130%) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(130%) !important;
+  color:          rgba(255, 255, 255, 0.92) !important;
+  letter-spacing: 0.38em !important;
+  font-size:      0.66rem !important;
+  padding:        11px 0 !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.20),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.06),
+    0 0 40px rgba(255, 255, 255, 0.04) !important;
+}
+
+body.g-mode .hero-ribbon {
+  background: linear-gradient(
+    90deg,
+    rgba(var(--accent-rgb), 0.06) 0%,
+    rgba(var(--accent-rgb), 0.13) 50%,
+    rgba(var(--accent-rgb), 0.06) 100%
+  ) !important;
+  border-top-color:    rgba(var(--accent-rgb), 0.30) !important;
+  border-bottom-color: rgba(var(--accent-rgb), 0.12) !important;
+  color: rgba(255, 210, 210, 0.92) !important;
+  text-shadow: 0 0 12px rgba(var(--accent-rgb), 0.45) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(var(--accent-rgb), 0.28),
+    inset 0 -1px 0 rgba(var(--accent-rgb), 0.10),
+    0 0 40px rgba(var(--accent-rgb), 0.06) !important;
+}
+
+/* ============================================================
+   8. HERO DESCRIPTION PILL — true glass
+   ============================================================ */
+.hero-description {
+  background:     rgba(255, 255, 255, 0.06) !important;
+  border:         1px solid rgba(255, 255, 255, 0.10) !important;
+  backdrop-filter: blur(14px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(140%) !important;
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.40),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+}
+
+body.g-mode .hero-description {
+  background: rgba(var(--accent-rgb), 0.07) !important;
+  border-color: rgba(var(--accent-rgb), 0.18) !important;
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.40),
+    0 0 20px rgba(var(--accent-rgb), 0.06),
+    inset 0 1px 0 rgba(255, 180, 180, 0.16) !important;
+}
+
+/* ============================================================
+   9. NEW ALBUM SECTION — Glass content card
+   ============================================================ */
+.album-content {
+  background:     var(--g-bg);
+  backdrop-filter: blur(var(--g-blur)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--g-blur)) saturate(160%);
+  border:         1px solid var(--g-border);
+  border-top-color: var(--g-top);
+  border-radius:  var(--r-card);
+  padding:        38px 44px;
+  box-shadow:     var(--g-shadow);
+  position:       relative;
+  overflow:       hidden;
+  max-width:      720px;
+}
+
+.album-content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    transparent 55%,
+    rgba(255, 255, 255, 0.02) 100%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Top highlight rule */
+.album-content::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent);
+  pointer-events: none;
+}
+
+body.g-mode .album-content {
+  background:     rgba(var(--accent-rgb), 0.04);
+  border-color:   rgba(var(--accent-rgb), 0.12);
+  border-top-color: rgba(var(--accent-rgb), 0.24);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.55),
+    0 0 40px rgba(var(--accent-rgb), 0.06),
+    inset 0 1px 0 rgba(var(--accent-rgb), 0.16);
+}
+
+@media (max-width: 720px) {
+  .album-content { padding: 28px 24px; }
+}
+
+/* ============================================================
+   10. ALBUMS SECTION — Dark space background + ring fixes
+   ============================================================ */
+.albums-section {
+  background:
+    radial-gradient(ellipse at 25% 20%, rgba(80, 80, 160, 0.10), transparent 50%),
+    radial-gradient(ellipse at 75% 80%, rgba(var(--accent-rgb), 0.06), transparent 50%),
+    linear-gradient(180deg, #07070a 0%, #040407 100%) !important;
+}
+
+/* Stage sizing — wider radius so cards have breathing room */
+.albums-stage {
+  --stage-size:  clamp(290px, 42vw, 360px) !important;
+  --ring-radius: calc(var(--stage-size) * 1.1) !important;
+}
+
+/* Album card images — premium glass borders */
+.album-card img {
+  border-radius:  14px !important;
+  border:         1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow:
+    0 22px 52px rgba(0, 0, 0, 0.74),
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+  transition: transform 0.38s ease, box-shadow 0.38s ease, border-color 0.38s ease !important;
+}
+
+.album-card:hover img {
+  border-color: rgba(255, 255, 255, 0.32) !important;
+  box-shadow:
+    0 30px 68px rgba(0, 0, 0, 0.82),
+    0 0 0 1px rgba(255, 255, 255, 0.20),
+    0 0 44px rgba(var(--accent-rgb), 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30) !important;
+}
+
+/* Album title pill — glass treatment */
+.album-card-title {
+  background:     rgba(0, 0, 0, 0.72) !important;
+  border:         1px solid rgba(255, 255, 255, 0.20) !important;
+  backdrop-filter: blur(14px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(150%) !important;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.65),
+    0 0 22px rgba(255, 255, 255, 0.12) !important;
+  text-shadow:
+    0 0 12px rgba(255, 255, 255, 0.55),
+    0 0 28px rgba(255, 255, 255, 0.30) !important;
+}
+
+body.g-mode .album-card-title {
+  border-color: rgba(var(--accent-rgb), 0.30) !important;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.65),
+    0 0 22px rgba(var(--accent-rgb), 0.20) !important;
+  text-shadow:
+    0 0 12px rgba(var(--accent-rgb), 0.60),
+    0 0 28px rgba(var(--accent-rgb), 0.35) !important;
+}
+
+/* ============================================================
+   11. TOUR SECTION — Glass countdown + tour items
+   ============================================================ */
+.tour {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(var(--accent-rgb), 0.06), transparent 55%),
+    radial-gradient(circle at 15% 85%, rgba(60, 80, 140, 0.07), transparent 50%),
+    linear-gradient(180deg, var(--bg-elevated), var(--bg)) !important;
+}
+
+/* Countdown card */
+.countdown-card {
+  border-radius:    var(--r-card) !important;
+  border:           1px solid var(--g-border) !important;
+  border-top-color: var(--g-top) !important;
+  background:       var(--g-bg) !important;
+  backdrop-filter:  blur(var(--g-blur)) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(var(--g-blur)) saturate(160%) !important;
+  box-shadow:       var(--g-shadow) !important;
+  position:         relative;
+  overflow:         hidden;
+}
+
+body.g-mode .countdown-card {
+  border-color:     rgba(var(--accent-rgb), 0.12) !important;
+  border-top-color: rgba(var(--accent-rgb), 0.24) !important;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.55),
+    0 0 40px rgba(var(--accent-rgb), 0.06),
+    inset 0 1px 0 rgba(var(--accent-rgb), 0.16) !important;
+}
+
+.countdown-number {
+  text-shadow: 0 0 20px rgba(var(--accent-rgb), 0.40) !important;
+  letter-spacing: 0.06em !important;
+}
+
+/* Tour item rows */
+.tour-item {
+  border-radius:    14px !important;
+  border:           1px solid rgba(255, 255, 255, 0.07) !important;
+  border-top-color: rgba(255, 255, 255, 0.14) !important;
+  transition: transform 0.26s ease, box-shadow 0.26s ease, border-color 0.26s ease !important;
+}
+
+.tour-item:hover {
+  border-color:     rgba(255, 255, 255, 0.22) !important;
+  border-top-color: rgba(255, 255, 255, 0.36) !important;
+  box-shadow:
+    0 22px 50px rgba(0, 0, 0, 0.46),
+    0 0 24px rgba(var(--accent-rgb), 0.06) !important;
+}
+
+body.g-mode .tour-item {
+  border-color:     rgba(var(--accent-rgb), 0.10) !important;
+  border-top-color: rgba(var(--accent-rgb), 0.20) !important;
+}
+
+body.g-mode .tour-item:hover {
+  border-color:     rgba(var(--accent-rgb), 0.28) !important;
+  border-top-color: rgba(var(--accent-rgb), 0.44) !important;
+  box-shadow:
+    0 22px 50px rgba(0, 0, 0, 0.48),
+    0 0 28px rgba(var(--accent-rgb), 0.10) !important;
+}
+
+.tour-item-action button {
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  transition: all 0.22s ease !important;
+}
+
+/* ============================================================
+   12. CITIES ARCHIVE — Consistent card borders
+   ============================================================ */
+.city-card {
+  border-color: rgba(255, 255, 255, 0.10) !important;
+}
+
+.city-panel {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  border-top-color: rgba(255, 255, 255, 0.16) !important;
+  backdrop-filter: blur(24px) saturate(155%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(155%) !important;
+}
+
+/* ============================================================
+   13. ABOUT SECTION — Glass grid card
+   ============================================================ */
+.about {
+  background:
+    radial-gradient(circle at 78% 28%, rgba(var(--accent-rgb), 0.05), transparent 55%),
+    radial-gradient(circle at 22% 72%, rgba(60, 90, 160, 0.06), transparent 50%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-elevated) 100%) !important;
+}
+
+.about-grid {
+  background:     var(--g-bg);
+  backdrop-filter: blur(var(--g-blur)) saturate(155%);
+  -webkit-backdrop-filter: blur(var(--g-blur)) saturate(155%);
+  border:         1px solid var(--g-border);
+  border-top-color: var(--g-top);
+  border-radius:  var(--r-card);
+  padding:        42px 48px;
+  margin-top:     22px;
+  box-shadow:     var(--g-shadow);
+  position:       relative;
+  overflow:       hidden;
+}
+
+/* Glass sheen */
+.about-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    transparent 55%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Top highlight rule */
+.about-grid::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 8%; right: 8%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.38), transparent);
+  pointer-events: none;
+}
+
+.about-quote {
+  border-left:  2px solid var(--accent) !important;
+  padding-left: 20px !important;
+  box-shadow:   -10px 0 28px rgba(var(--accent-rgb), 0.08) !important;
+  color: color-mix(in srgb, var(--text) 80%, var(--muted)) !important;
+  font-size:    1.02rem;
+  line-height:  1.75;
+}
+
+body.g-mode .about-grid {
+  border-color:     rgba(var(--accent-rgb), 0.10);
+  border-top-color: rgba(var(--accent-rgb), 0.20);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.55),
+    0 0 40px rgba(var(--accent-rgb), 0.05),
+    inset 0 1px 0 rgba(var(--accent-rgb), 0.12);
+}
+
+@media (max-width: 820px) {
+  .about-grid { padding: 28px 22px; }
+}
+
+/* ============================================================
+   14. SUBSCRIBE — Cleaner glass card
+   ============================================================ */
+.subscribe {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(var(--accent-rgb), 0.07), transparent 50%),
+    radial-gradient(circle at 80% 90%, rgba(60, 80, 140, 0.06), transparent 50%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-elevated) 100%) !important;
+}
+
+.subscribe-card {
+  background:     rgba(255, 255, 255, 0.035) !important;
+  border:         1px solid rgba(255, 255, 255, 0.09) !important;
+  border-top-color: rgba(255, 255, 255, 0.18) !important;
+  border-radius:  var(--r-card) !important;
+  backdrop-filter: blur(var(--g-blur)) saturate(155%) !important;
+  -webkit-backdrop-filter: blur(var(--g-blur)) saturate(155%) !important;
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.58),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+}
+
+body.g-mode .subscribe-card {
+  border-color:     rgba(var(--accent-rgb), 0.12) !important;
+  border-top-color: rgba(var(--accent-rgb), 0.22) !important;
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.58),
+    0 0 40px rgba(var(--accent-rgb), 0.06),
+    inset 0 1px 0 rgba(var(--accent-rgb), 0.14) !important;
+}
+
+.subscribe input,
+.subscribe select,
+.subscribe textarea {
+  background:   rgba(255, 255, 255, 0.05) !important;
+  border:       1px solid rgba(255, 255, 255, 0.10) !important;
+  border-radius: 10px !important;
+  transition: border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease !important;
+}
+
+.subscribe input:focus,
+.subscribe select:focus,
+.subscribe textarea:focus {
+  background:   rgba(255, 255, 255, 0.07) !important;
+  border-color: rgba(var(--accent-rgb), 0.42) !important;
+  box-shadow:   0 0 0 3px rgba(var(--accent-rgb), 0.12) !important;
+}
+
+.subscribe-title span {
+  text-shadow: 0 0 22px rgba(var(--accent-rgb), 0.55) !important;
+}
+
+/* ============================================================
+   15. BUTTONS — Enhanced hover with glow
+   ============================================================ */
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.62),
+    0 0 32px rgba(var(--accent-rgb), 0.22),
+    0 0 0 1px rgba(255, 255, 255, 0.20) inset !important;
+  transform: translateY(-2px) !important;
+}
+
+/* ============================================================
+   16. SOCIAL / FOOTER ICONS — Consistent glass buttons
+   ============================================================ */
+.social-glass {
+  border:           1px solid rgba(255, 255, 255, 0.22) !important;
+  background:       rgba(255, 255, 255, 0.10) !important;
+  backdrop-filter:  blur(14px) saturate(145%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(145%) !important;
+  transition:       transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease !important;
+}
+
+.social-glass:hover {
+  transform:   translateZ(0) scale(1.07) translateY(-2px) !important;
+  border-color: rgba(255, 255, 255, 0.44) !important;
+  box-shadow:
+    0 14px 38px rgba(0, 0, 0, 0.55),
+    0 0 22px rgba(var(--accent-rgb), 0.14),
+    inset 0 1px 1px rgba(255, 255, 255, 0.35) !important;
+}
+
+/* ============================================================
+   17. SPOTIFY / YOUTUBE SECTIONS — consistent glass embed frames
+   ============================================================ */
+#youtube.spotify-section {
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 60, 60, 0.10), transparent 40%),
+    radial-gradient(circle at 78% 22%, rgba(255, 100, 0, 0.07), transparent 40%),
+    linear-gradient(140deg, #090810 6%, #0f0f17 42%, #08080b 100%) !important;
+}
+
+#youtube .spotify-card {
+  border-color: rgba(255, 80, 0, 0.22) !important;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(255, 60, 0, 0.10), transparent 50%),
+    linear-gradient(156deg, rgba(8, 6, 12, 0.96), rgba(4, 3, 8, 0.95)) !important;
+}
+
+/* ============================================================
+   18. G MODE SECTION-WIDE ACCENT TREATMENT
+   ============================================================ */
+body.g-mode .section-heading:not(.cities-archive .section-heading) {
+  text-shadow: none !important;
+}
+
+body.g-mode .section-heading:not(.cities-archive .section-heading):hover {
+  filter: drop-shadow(0 0 14px rgba(var(--accent-rgb), 0.50));
+  letter-spacing: 0.15em !important;
+}
+
+body.g-mode .countdown-number {
+  color: color-mix(in srgb, var(--accent) 60%, var(--text)) !important;
+  text-shadow: 0 0 24px rgba(var(--accent-rgb), 0.55) !important;
+}
+
+/* ============================================================
+   19. REVEAL ANIMATION ENHANCEMENT — faster, crisper
+   ============================================================ */
+.reveal {
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+/* ============================================================
+   20. REDUCE MOTION — honour user preference
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .section-heading { transition: none !important; }
+  .section-heading:hover {
+    text-shadow: none !important;
+    filter: none !important;
+    letter-spacing: inherit !important;
+  }
+}
