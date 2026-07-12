@@ -1,2 +1,5 @@
 .DS_Store
 
+# Local-only Claude Code design skills (not part of the site)
+skills/taste-skill/
+.claude/skills/ui-ux-pro-max/
