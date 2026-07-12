@@ -1859,7 +1859,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
 
     const saved = localStorage.getItem("theme");
-    const isSavedGMode = saved ? saved === "g-red" : localStorage.getItem("gMode") === "on";
+    const isSavedGMode = saved ? saved === "g-red" : localStorage.getItem("gMode") !== "off";
     applyTheme(isSavedGMode);
 
     gModeToggle.addEventListener("click", () => {
