@@ -211,7 +211,6 @@ header {
 .album-card {
   --mx: 0.5;
   --my: 0.5;
-  position: relative;
 }
 .album-card::after {
   content: "";

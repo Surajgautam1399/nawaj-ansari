@@ -249,7 +249,7 @@ body.g-mode .album-content {
 /* Stage sizing — wider radius so cards have breathing room */
 .albums-stage {
   --stage-size:  clamp(290px, 42vw, 360px) !important;
-  --ring-radius: calc(var(--stage-size) * 1.1) !important;
+  --ring-radius: calc(var(--stage-size) * 0.92) !important;
 }
 
 /* Album card images — premium glass borders */
